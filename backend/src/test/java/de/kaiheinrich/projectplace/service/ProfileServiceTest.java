@@ -1,6 +1,7 @@
 package de.kaiheinrich.projectplace.service;
 
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
+import de.kaiheinrich.projectplace.dto.ProfileDto;
 import de.kaiheinrich.projectplace.model.Profile;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ProfileServiceTest {
 
@@ -24,7 +24,7 @@ class ProfileServiceTest {
 
     @Test
     @DisplayName("The getProfiles method should return all profiles")
-    void getAllProfilesTest() {
+    public void getAllProfilesTest() {
 
         //Given
         List<Profile> profiles = List.of(
@@ -44,7 +44,7 @@ class ProfileServiceTest {
 
     @Test
     @DisplayName("The getProfileByUsername Test should return the correct user")
-    void getProfileByUsernameTest() {
+    public void getProfileByUsernameTest() {
 
         //Given
         String searchedUsername = "andi324";
@@ -62,7 +62,7 @@ class ProfileServiceTest {
 
     @Test
     @DisplayName("The getProfileByUsername Test should return a 404 Exception when an unknown user is searched")
-    void getProfileByUsernameTestWithUnknownUsername() {
+    public void getProfileByUsernameTestWithUnknownUsername() {
 
         //Given
         String searchedUsername = "wolle787";
@@ -78,6 +78,42 @@ class ProfileServiceTest {
     }
 
     @Test
-    void updateProfile() {
+    public void updateProfileTest() {
+
+        //Given
+        String username = "Günni";
+
+        ProfileDto profileDto = new ProfileDto(
+                "Horst",
+                "60",
+                "Würzburg",
+                "drinking"
+        );
+
+        Profile previousProfile = new Profile(
+                "Günni",
+                "Günther",
+                "41",
+                "Pfaffenhofen",
+                "smoke"
+        );
+
+        Profile updatedProfile = new Profile(
+                "Günni",
+                "Horst",
+                "60",
+                "Würzburg",
+                "drinking"
+        );
+
+        when(profileDb.findById(username)).thenReturn(Optional.of(previousProfile));
+        when(profileDb.save(updatedProfile)).thenReturn(updatedProfile);
+
+        //When
+        Profile result = profileService.updateProfile(profileDto, "Günni");
+
+        //Then
+        assertThat(result, is(updatedProfile));
+        verify(profileDb).save(updatedProfile);
     }
 }

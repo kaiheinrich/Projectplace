@@ -10,7 +10,5 @@ public interface ProfileMongoDb extends PagingAndSortingRepository<Profile, Stri
 
     List<Profile> findAll();
 
-    Optional<Profile> findById(String username);
-
     Profile save(Profile profile);
 }

@@ -31,6 +31,6 @@ public class ProfileController {
         if(profileService.getProfileByUsername(username).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return profileService.updateProfile(profileDto);
+        return profileService.updateProfile(profileDto, username);
     }
 }

@@ -32,8 +32,9 @@ public class ProfileService {
         return profileDb.findById(username);
     }
 
-    public Profile updateProfile(ProfileDto profileDto) {
+    public Profile updateProfile(ProfileDto profileDto, String username) {
         Profile updatedProfile = Profile.builder()
+                .username(username)
                 .age(profileDto.getAge())
                 .location(profileDto.getLocation())
                 .skills(profileDto.getSkills())
