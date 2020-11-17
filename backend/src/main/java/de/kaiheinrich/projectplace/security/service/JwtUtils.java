@@ -1,5 +1,6 @@
 package de.kaiheinrich.projectplace.security.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,4 +27,11 @@ public class JwtUtils {
                 .compact();
     }
 
+    public Claims parseToken(String token) {
+        return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+    }
+
+    public boolean isExpired(Claims claims) {
+        return claims.getExpiration().before(new Date());
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,10 @@ public class ProfileController {
     }
 
     @PutMapping("{username}")
-    public Profile updateProfile(@RequestBody ProfileDto profileDto, @PathVariable String username) {
+    public Profile updateProfile(@RequestBody ProfileDto profileDto, Principal principal, @PathVariable String username) {
+        if(!principal.getName().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         if(profileService.getProfileByUsername(username).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
