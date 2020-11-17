@@ -29,7 +29,7 @@ public class ProfileController {
     @PutMapping("{username}")
     public Profile updateProfile(@RequestBody ProfileDto profileDto, @PathVariable String username) {
         if(profileService.getProfileByUsername(username).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return profileService.updateProfile(profileDto, username);
     }

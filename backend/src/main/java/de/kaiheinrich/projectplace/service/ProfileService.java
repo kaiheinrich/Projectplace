@@ -26,9 +26,6 @@ public class ProfileService {
     }
 
     public Optional<Profile> getProfileByUsername(String username) {
-        if(!profileDb.existsById(username)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
         return profileDb.findById(username);
     }
 

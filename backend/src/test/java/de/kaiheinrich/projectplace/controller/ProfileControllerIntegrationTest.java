@@ -63,6 +63,27 @@ class ProfileControllerIntegrationTest {
     }
 
     @Test
+    public void testPutMappingShouldReturn404WhenUsernameIsNotKnown() {
+
+        //Given
+        String url = getProfilesUrl() + "/werner7";
+
+        ProfileDto profileDto = ProfileDto.builder()
+                .name("Werner")
+                .age("107")
+                .location("Münster")
+                .skills("cooking")
+                .build();
+
+        //When
+        HttpEntity<ProfileDto> entity = new HttpEntity<>(profileDto);
+        ResponseEntity<Profile> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Profile.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
+    }
+
+    @Test
     void updateProfileShouldUpdateExistingProfile() {
 
         //Given
@@ -85,10 +106,10 @@ class ProfileControllerIntegrationTest {
         ResponseEntity<Profile> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Profile.class);
 
         //Then
-        Optional<Profile> savedProfile = profileMongoDb.findById("andi324");
+        Profile savedProfile = profileMongoDb.findById("andi324").orElseThrow();
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(updatedProfile));
-        assertThat(savedProfile.get(), is(updatedProfile));
+        assertThat(savedProfile, is(updatedProfile));
     }
 }
