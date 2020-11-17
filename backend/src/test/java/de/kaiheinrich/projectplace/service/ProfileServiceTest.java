@@ -25,8 +25,8 @@ class ProfileServiceTest {
 
         //Given
         List<Profile> profiles = List.of(
-                new Profile("andi324","Andreas", "24", "Berlin", "Cars and couches"),
-                new Profile("birgit116","Birgit", "36", "Hamburg", "Nails")
+                new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches")),
+                new Profile("birgit116","Birgit", "36", "Hamburg", List.of("Nails"))
         );
 
         when(profileDb.findAll()).thenReturn(profiles);
@@ -46,7 +46,7 @@ class ProfileServiceTest {
         //Given
         String searchedUsername = "andi324";
 
-        Profile searchedProfile = new Profile("andi324","Andreas", "24", "Berlin", "Cars and couches");
+        Profile searchedProfile = new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches"));
 
         when(profileDb.findById("andi324")).thenReturn(Optional.of(searchedProfile));
 
@@ -54,7 +54,7 @@ class ProfileServiceTest {
         Profile resultProfile = profileDb.findById(searchedUsername).orElseThrow();
 
         //Then
-        assertThat(resultProfile, is(new Profile("andi324","Andreas", "24", "Berlin", "Cars and couches")));
+        assertThat(resultProfile, is(new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches"))));
     }
 
     @Test
@@ -83,7 +83,7 @@ class ProfileServiceTest {
                 "Horst",
                 "60",
                 "Würzburg",
-                "drinking"
+                List.of("drinking")
         );
 
         Profile previousProfile = new Profile(
@@ -91,7 +91,7 @@ class ProfileServiceTest {
                 "Günther",
                 "41",
                 "Pfaffenhofen",
-                "smoke"
+                List.of("smoke")
         );
 
         Profile updatedProfile = new Profile(
@@ -99,7 +99,7 @@ class ProfileServiceTest {
                 "Horst",
                 "60",
                 "Würzburg",
-                "drinking"
+                List.of("drinking")
         );
 
         when(profileDb.findById(username)).thenReturn(Optional.of(previousProfile));

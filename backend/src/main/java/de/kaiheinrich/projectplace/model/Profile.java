@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,5 +21,5 @@ public class Profile {
     private String name;
     private String age;
     private String location;
-    private String skills;
+    private List<String> skills;
 }

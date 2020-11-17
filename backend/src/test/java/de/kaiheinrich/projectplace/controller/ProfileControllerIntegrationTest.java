@@ -36,8 +36,8 @@ class ProfileControllerIntegrationTest {
     public void setupProfileDb() {
         profileMongoDb.deleteAll();
         profileMongoDb.saveAll(List.of(
-                new Profile("andi324","Andreas", "24", "Berlin", "Cars and couches"),
-                new Profile("birgit116","Birgit", "36", "Hamburg", "Nails")
+                new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches")),
+                new Profile("birgit116","Birgit", "36", "Hamburg", List.of("Nails"))
         ));
     }
 
@@ -50,8 +50,8 @@ class ProfileControllerIntegrationTest {
 
         //Given
         List<Profile> profileList = List.of(
-                new Profile("andi324","Andreas", "24", "Berlin", "Cars and couches"),
-                new Profile("birgit116","Birgit", "36", "Hamburg", "Nails")
+                new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches")),
+                new Profile("birgit116","Birgit", "36", "Hamburg", List.of("Nails"))
         );
 
         //When
@@ -72,7 +72,7 @@ class ProfileControllerIntegrationTest {
                 .name("Werner")
                 .age("107")
                 .location("Münster")
-                .skills("cooking")
+                .skills(List.of("cooking"))
                 .build();
 
         //When
@@ -93,11 +93,11 @@ class ProfileControllerIntegrationTest {
                 .name("Andi der coole")
                 .age("36")
                 .location("Toronto")
-                .skills("minigolf")
+                .skills(List.of("minigolf"))
                 .build();
 
         Profile updatedProfile = new Profile(
-                "andi324","Andi der coole", "36", "Toronto", "minigolf"
+                "andi324","Andi der coole", "36", "Toronto", List.of("minigolf")
         );
 
 
