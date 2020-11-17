@@ -6,6 +6,7 @@ import de.kaiheinrich.projectplace.model.Profile;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,8 @@ class ProfileServiceTest {
 
         //Given
         List<Profile> profiles = List.of(
-                new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches")),
-                new Profile("birgit116","Birgit", "36", "Hamburg", List.of("Nails"))
+                new Profile("andi324","Andreas", LocalDate.of(1900, 10, 24), "Berlin", List.of("Cars and couches")),
+                new Profile("birgit116","Birgit", LocalDate.of(1985, 9, 9), "Hamburg", List.of("Nails"))
         );
 
         when(profileDb.findAll()).thenReturn(profiles);
@@ -46,7 +47,7 @@ class ProfileServiceTest {
         //Given
         String searchedUsername = "andi324";
 
-        Profile searchedProfile = new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches"));
+        Profile searchedProfile = new Profile("andi324","Andreas", LocalDate.of(1977, 8, 7), "Berlin", List.of("Cars and couches"));
 
         when(profileDb.findById("andi324")).thenReturn(Optional.of(searchedProfile));
 
@@ -54,7 +55,7 @@ class ProfileServiceTest {
         Profile resultProfile = profileDb.findById(searchedUsername).orElseThrow();
 
         //Then
-        assertThat(resultProfile, is(new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches"))));
+        assertThat(resultProfile, is(new Profile("andi324","Andreas", LocalDate.of(1977, 8, 7), "Berlin", List.of("Cars and couches"))));
     }
 
     @Test
@@ -81,7 +82,7 @@ class ProfileServiceTest {
 
         ProfileDto profileDto = new ProfileDto(
                 "Horst",
-                "60",
+                LocalDate.of(1950, 5, 27),
                 "Würzburg",
                 List.of("drinking")
         );
@@ -89,7 +90,7 @@ class ProfileServiceTest {
         Profile previousProfile = new Profile(
                 "Günni",
                 "Günther",
-                "41",
+                LocalDate.of(1966, 11, 5),
                 "Pfaffenhofen",
                 List.of("smoke")
         );
@@ -97,7 +98,7 @@ class ProfileServiceTest {
         Profile updatedProfile = new Profile(
                 "Günni",
                 "Horst",
-                "60",
+                LocalDate.of(1950, 5, 27),
                 "Würzburg",
                 List.of("drinking")
         );

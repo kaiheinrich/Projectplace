@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -14,7 +15,7 @@ import java.util.List;
 public class ProfileDto {
 
     private String name;
-    private String age;
+    private LocalDate birthday;
     private String location;
     private List<String> skills;
 }

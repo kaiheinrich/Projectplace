@@ -1,3 +1,4 @@
+
 package de.kaiheinrich.projectplace.controller;
 
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
@@ -14,8 +15,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -36,8 +37,8 @@ class ProfileControllerIntegrationTest {
     public void setupProfileDb() {
         profileMongoDb.deleteAll();
         profileMongoDb.saveAll(List.of(
-                new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches")),
-                new Profile("birgit116","Birgit", "36", "Hamburg", List.of("Nails"))
+                new Profile("andi324","Andreas", LocalDate.of(1900, 10, 24), "Berlin", List.of("Cars and couches")),
+                new Profile("birgit116","Birgit", LocalDate.of(1985, 9, 9), "Hamburg", List.of("Nails"))
         ));
     }
 
@@ -50,8 +51,8 @@ class ProfileControllerIntegrationTest {
 
         //Given
         List<Profile> profileList = List.of(
-                new Profile("andi324","Andreas", "24", "Berlin", List.of("Cars and couches")),
-                new Profile("birgit116","Birgit", "36", "Hamburg", List.of("Nails"))
+                new Profile("andi324","Andreas", LocalDate.of(1900, 10, 24), "Berlin", List.of("Cars and couches")),
+                new Profile("birgit116","Birgit", LocalDate.of(1985, 9, 9), "Hamburg", List.of("Nails"))
         );
 
         //When
@@ -70,7 +71,7 @@ class ProfileControllerIntegrationTest {
 
         ProfileDto profileDto = ProfileDto.builder()
                 .name("Werner")
-                .age("107")
+                .birthday(LocalDate.of(1887, 4, 5))
                 .location("Münster")
                 .skills(List.of("cooking"))
                 .build();
@@ -91,13 +92,13 @@ class ProfileControllerIntegrationTest {
 
         ProfileDto profileDto = ProfileDto.builder()
                 .name("Andi der coole")
-                .age("36")
+                .birthday(LocalDate.of(1977, 1, 1))
                 .location("Toronto")
                 .skills(List.of("minigolf"))
                 .build();
 
         Profile updatedProfile = new Profile(
-                "andi324","Andi der coole", "36", "Toronto", List.of("minigolf")
+                "andi324","Andi der coole", LocalDate.of(1977, 1, 1), "Toronto", List.of("minigolf")
         );
 
 

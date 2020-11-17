@@ -4,9 +4,7 @@ import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
 import de.kaiheinrich.projectplace.model.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +30,7 @@ public class ProfileService {
     public Profile updateProfile(ProfileDto profileDto, String username) {
         Profile updatedProfile = Profile.builder()
                 .username(username)
-                .age(profileDto.getAge())
+                .birthday(profileDto.getBirthday())
                 .location(profileDto.getLocation())
                 .skills(profileDto.getSkills())
                 .name(profileDto.getName())
