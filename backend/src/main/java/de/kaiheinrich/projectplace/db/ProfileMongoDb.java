@@ -8,6 +8,4 @@ import java.util.List;
 public interface ProfileMongoDb extends PagingAndSortingRepository<Profile, String> {
 
     List<Profile> findAll();
-
-    Profile save(Profile profile);
 }
