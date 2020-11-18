@@ -20,7 +20,6 @@ import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = "jwt.secretkey=someverycoolsecretkey")
@@ -79,8 +78,7 @@ class LoginControllerTest {
         );
 
         //When
-        ResponseEntity<String> response = restTemplate.postForEntity(getLoginUrl(), loginDto, String.class);
-        String token = response.getBody();
+        ResponseEntity<Void> response = restTemplate.postForEntity(getLoginUrl(), loginDto, Void.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));

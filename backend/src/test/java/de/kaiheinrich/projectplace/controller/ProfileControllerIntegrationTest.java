@@ -99,7 +99,7 @@ class ProfileControllerIntegrationTest {
     public void testGetMappingShouldReturnForbiddenWithoutToken() {
 
         //When
-        ResponseEntity<String> response = restTemplate.getForEntity(getProfilesUrl(), String.class);
+        ResponseEntity<Void> response = restTemplate.getForEntity(getProfilesUrl(), Void.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
@@ -120,7 +120,7 @@ class ProfileControllerIntegrationTest {
 
         //When
         HttpEntity<ProfileDto> entity = getValidAuthorizationEntity(profileDto);
-        ResponseEntity<Profile> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Profile.class);
+        ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Void.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
@@ -171,7 +171,7 @@ class ProfileControllerIntegrationTest {
 
         //When
         HttpEntity<ProfileDto> entity = getValidAuthorizationEntity(profileDto);
-        ResponseEntity<Profile> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Profile.class);
+        ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Void.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));

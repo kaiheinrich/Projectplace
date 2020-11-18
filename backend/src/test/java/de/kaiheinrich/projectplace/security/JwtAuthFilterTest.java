@@ -78,7 +78,7 @@ class JwtAuthFilterTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         HttpEntity<Void> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(getProfilesUrl(), HttpMethod.GET, entity, String.class);
+        ResponseEntity<Void> response = restTemplate.exchange(getProfilesUrl(), HttpMethod.GET, entity, Void.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
@@ -100,7 +100,7 @@ class JwtAuthFilterTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         HttpEntity<Void> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(getProfilesUrl(), HttpMethod.GET, entity, String.class);
+        ResponseEntity<Void> response = restTemplate.exchange(getProfilesUrl(), HttpMethod.GET, entity, Void.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
