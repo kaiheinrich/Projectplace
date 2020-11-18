@@ -40,7 +40,7 @@ class ProfileControllerIntegrationTest {
     private UserMongoDb userDb;
 
     @BeforeEach
-    public void setupProfileDb() {
+    public void setup() {
         profileDb.deleteAll();
         profileDb.saveAll(List.of(
                 new Profile("andi324","Andreas", LocalDate.of(1900, 10, 24), "Berlin", List.of("Cars and couches")),
