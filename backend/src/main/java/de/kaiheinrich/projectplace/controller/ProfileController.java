@@ -29,11 +29,11 @@ public class ProfileController {
 
     @PutMapping("{username}")
     public Profile updateProfile(@RequestBody ProfileDto profileDto, Principal principal, @PathVariable String username) {
-        if(!principal.getName().equals(username)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
         if(profileService.getProfileByUsername(username).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        if(!principal.getName().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return profileService.updateProfile(profileDto, username);
     }
