@@ -1,10 +1,12 @@
-
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import LoginPage from "./components/loginPage/LoginPage";
 
 function App() {
   return (
-    <div className="App">
-      Hallo
-    </div>
+    <Switch>
+        <Route path="/login" component={LoginPage}/>
+    </Switch>
   );
 }
 
