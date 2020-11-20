@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/profiles")
@@ -32,7 +33,7 @@ public class ProfileController {
         if(profileService.getProfileByUsername(username).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        if(!principal.getName().equals(username)) {
+        if(!Objects.equals(principal.getName(), username)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return profileService.updateProfile(profileDto, username);
