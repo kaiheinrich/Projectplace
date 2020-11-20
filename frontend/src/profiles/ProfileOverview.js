@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import ProfileContext from "../contexts/ProfileContext";
 import ProfileOverviewItem from "./ProfileOverviewItem";
+import styled from "styled-components/macro";
 
 export default function ProfileOverview() {
 
@@ -9,13 +10,22 @@ export default function ProfileOverview() {
     return(
         <>
             <header>Profiles</header>
-            <ul>
+            <ListStyled>
                 {profiles?.map(profile =>
                 <li key={profile.username}>
                     <ProfileOverviewItem profile={profile}/>
                 </li>
                 )}
-            </ul>
+            </ListStyled>
         </>
         );
 }
+
+const ListStyled = styled.ul`
+  display: grid;
+  grid-auto-rows: min-content;
+  list-style: none;
+  margin: var(--size-l);
+  gap: var(--size-l);
+  padding: 0;
+`;

@@ -31,4 +31,5 @@ const AppStyled = styled.div`
   grid-template-rows: min-content 1fr;
   height: 100vh;
   background-color: var(--greyish-yellow);
+  overflow: scroll;
 `;
