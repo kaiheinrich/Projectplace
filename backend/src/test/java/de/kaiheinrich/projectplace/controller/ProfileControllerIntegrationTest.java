@@ -86,7 +86,6 @@ class ProfileControllerIntegrationTest {
         );
 
         //When
-
         HttpEntity<Void> entity = getValidAuthorizationEntity(null);
         ResponseEntity<Profile[]> response = restTemplate.exchange(getProfilesUrl(), HttpMethod.GET, entity, Profile[].class);
 

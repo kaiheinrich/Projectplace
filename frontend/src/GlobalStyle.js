@@ -4,10 +4,10 @@ export default createGlobalStyle`
 
 :root {
 
-   --greyish-yellow: f8efd4;
-   --brown: edc988;
-   --red: d7385e;
-   --black: 132743;
+   --greyish-yellow: #f8efd4;
+   --brown: #edc988;
+   --red: #d7385e;
+   --black: #132743;
   
    --size-xs: 4px;
    --size-s: 8px;
