@@ -1,5 +1,3 @@
-import React from "react";
-
 const USER_CREDENTIALS = "USER_CREDENTIALS";
 const ACCESS_TOKEN = "ACCESS_TOKEN";
 
