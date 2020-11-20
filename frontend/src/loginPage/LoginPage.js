@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import styled from "styled-components/macro";
 import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import {Button, TextField} from "@material-ui/core";
 
 const initialCredentials = {
     username: "",
@@ -17,28 +18,24 @@ export default function LoginPage() {
 
     return(
         <>
-            <header title="Login"/>
+            <HeaderStyled title="Login">Welcome!</HeaderStyled>
             <main>
-                <Form onSubmit={handleSubmit}>
-                    <label>
-                        Username
-                        <input
-                            name="username"
-                            value={credentials.username}
-                            onChange={handleChange}
-                            type="text"
-                        />
-                    </label>
-                    <label>
-                        Password
-                        <input
-                            name="password"
-                            value={credentials.password}
-                            onChange={handleChange}
-                            type="password"
-                        />
-                    </label>
-                    <button>Login</button>
+                <Form autoComplete="off" onSubmit={handleSubmit}>
+                    <TextField
+                        name="username"
+                        label="Username"
+                        value={credentials.username}
+                        onChange={handleChange}
+                        type="text"
+                        variant="outlined"/>
+                    <TextField
+                        name="password"
+                        label="Password"
+                        value={credentials.password}
+                        onChange={handleChange}
+                        type="password"
+                        variant="outlined"/>
+                    <Button type="submit">Login</Button>
                 </Form>
                 {error && <div>{error}</div>}
             </main>
@@ -75,3 +72,10 @@ const Form = styled.form`
     font-size: 1em;
   }
 `
+
+const HeaderStyled = styled.header`
+  text-align: center;
+  padding: var(--size-l);
+  background-color: var(--brown);
+  font-size: 115%;
+`;
