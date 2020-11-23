@@ -5,10 +5,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {useHistory} from "react-router-dom";
 
 export default function ProfileOverviewItem({profile}) {
 
     const classes = useStyles();
+    const history = useHistory();
+
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -25,7 +28,7 @@ export default function ProfileOverviewItem({profile}) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button size="small" onClick={() => history.push(`/profile/${profile.username}`)}>Learn More</Button>
             </CardActions>
         </Card>
     );
