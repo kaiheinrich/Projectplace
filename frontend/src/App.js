@@ -8,6 +8,7 @@ import ProfileOverview from "./profiles/ProfileOverview";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import styled from "styled-components/macro";
 import ProfileDetails from "./profiles/ProfileDetails";
+import EditProfile from "./profiles/EditProfile";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
                     <Route path="/login" component={LoginPage}/>
                     <ProtectedRoute path="/success" component={Success}/>
                     <ProtectedRoute exact path="/profile" component={ProfileOverview}/>
-                    <ProtectedRoute path="/profile/:username" component={ProfileDetails}/>
+                    <ProtectedRoute exact path="/profile/:username" component={ProfileDetails}/>
+                    <ProtectedRoute path="/profile/:username/edit" component={EditProfile}/>
                 </Switch>
               </AppStyled>
           </ProfileContextProvider>

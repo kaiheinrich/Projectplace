@@ -36,5 +36,5 @@ export default function UserContextProvider({children}) {
             .post("/auth/login", credentials)
             .then(response => setToken(response.data));
 
-    return <UserContext.Provider value={{token, tokenIsValid, postLogin, userCredentials}}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={{token, tokenIsValid, postLogin, userCredentials, setToken}}>{children}</UserContext.Provider>;
 }
