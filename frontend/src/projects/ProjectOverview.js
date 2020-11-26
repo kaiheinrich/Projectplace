@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import ProjectContext from "../contexts/ProjectContext";
-import NavBar from "../navBar/NavBar";
 import styled from "styled-components/macro";
 import ProjectOverviewItem from "./ProjectOverviewItem";
+import MenuAppBar from "../navBar/NavBar";
 
 export default function ProjectOverview() {
 
@@ -10,7 +10,7 @@ export default function ProjectOverview() {
 
     return(
         <>
-            <NavBar/>
+            <MenuAppBar pagename="Projects"/>
             <ListStyled>
                 {projects?.map(project =>
                     <li key={project.id}>

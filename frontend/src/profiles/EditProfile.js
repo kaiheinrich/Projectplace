@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
-import NavBar from "../navBar/NavBar";
 import ProfileContext from "../contexts/ProfileContext";
 import TextField from "@material-ui/core/TextField";
 import {updateProfile} from "../service/ProfileService";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
 import {Button} from "@material-ui/core";
+import MenuAppBar from "../navBar/NavBar";
 
 export default function EditProfile() {
 
@@ -19,7 +19,7 @@ export default function EditProfile() {
         setProfileData(profile);
     }, [profiles, username])
 
-    const {token, setToken} = useContext(UserContext);
+    const {token} = useContext(UserContext);
     const history = useHistory();
 
 
@@ -27,7 +27,7 @@ export default function EditProfile() {
     return(
         !profileData ? null :
         <>
-            <NavBar/>
+            <MenuAppBar pagename="Edit profile"/>
             <MainStyled>
                 <FormStyled onSubmit={handleSubmit}>
                     <TextField
@@ -53,7 +53,6 @@ export default function EditProfile() {
                         variant="outlined"/>
                     <Button type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
-                <Button variant="contained" color="secondary" onClick={handleLogout}>Logout</Button>
             </MainStyled>
         </>
     );
@@ -74,10 +73,6 @@ export default function EditProfile() {
         setProfileData({...profileData, [event.target.name]: event.target.value});
     }
 
-    function handleLogout() {
-        setToken("");
-        history.push("/login");
-    }
 }
 
 const MainStyled = styled.main`
