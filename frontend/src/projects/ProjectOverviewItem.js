@@ -9,7 +9,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 export default function ProjectOverviewItem({project}) {
 
     const classes = useStyles();
-    //const history = useHistory();
 
     return (
         <Card className={classes.root}>
