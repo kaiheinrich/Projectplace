@@ -9,20 +9,25 @@ import ProtectedRoute from "./routing/ProtectedRoute";
 import styled from "styled-components/macro";
 import ProfileDetails from "./profiles/ProfileDetails";
 import EditProfile from "./profiles/EditProfile";
+import ProjectOverview from "./projects/ProjectOverview";
+import ProjectContextProvider from "./contexts/ProjectContextProvider";
 
 function App() {
   return (
       <UserContextProvider>
           <ProfileContextProvider>
-              <AppStyled>
-                <Switch>
-                    <Route path="/login" component={LoginPage}/>
-                    <ProtectedRoute path="/success" component={Success}/>
-                    <ProtectedRoute exact path="/profile" component={ProfileOverview}/>
-                    <ProtectedRoute exact path="/profile/:username" component={ProfileDetails}/>
-                    <ProtectedRoute path="/profile/:username/edit" component={EditProfile}/>
-                </Switch>
-              </AppStyled>
+              <ProjectContextProvider>
+                  <AppStyled>
+                    <Switch>
+                        <Route path="/login" component={LoginPage}/>
+                        <ProtectedRoute path="/success" component={Success}/>
+                        <ProtectedRoute exact path="/profile" component={ProfileOverview}/>
+                        <ProtectedRoute exact path="/profile/:username" component={ProfileDetails}/>
+                        <ProtectedRoute path="/profile/:username/edit" component={EditProfile}/>
+                        <ProtectedRoute exact path="/project" component={ProjectOverview}/>
+                    </Switch>
+                  </AppStyled>
+              </ProjectContextProvider>
           </ProfileContextProvider>
       </UserContextProvider>
   );

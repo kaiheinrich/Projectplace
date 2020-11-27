@@ -25,7 +25,7 @@ export default function EditProfile() {
 
 
     return(
-        !profileData ? <p>Hallo</p> :
+        !profileData ? null :
         <>
             <NavBar/>
             <MainStyled>
