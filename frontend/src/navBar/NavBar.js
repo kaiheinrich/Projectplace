@@ -31,7 +31,7 @@ export default function MenuAppBar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const history = useHistory();
-    const {userCredentials, setToken} = useContext(UserContext);
+    const {userCredentials, logout} = useContext(UserContext);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -43,7 +43,7 @@ export default function MenuAppBar(props) {
     }
 
     const handleLogout = () => {
-        setToken("");
+        logout();
         history.push("/login");
         setAnchorEl(null);
     }

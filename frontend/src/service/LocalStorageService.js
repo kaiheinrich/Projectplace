@@ -16,7 +16,11 @@ export const loadUserCredentialsFromLocalStorage = () => {
     } catch (exception) {
         console.error(exception);
     }
-};
+}
 
 export const saveUserCredentialsToLocalStorage = (userCredentials) =>
     localStorage.setItem(USER_CREDENTIALS, JSON.stringify(userCredentials));
+
+export const deleteTokenFromLocalStorage = () => {
+    localStorage.removeItem(ACCESS_TOKEN);
+}
