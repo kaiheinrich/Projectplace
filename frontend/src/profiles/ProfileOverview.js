@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import ProfileContext from "../contexts/ProfileContext";
 import ProfileOverviewItem from "./ProfileOverviewItem";
 import styled from "styled-components/macro";
-import NavBar from "../navBar/NavBar";
+import MenuAppBar from "../navBar/NavBar";
 
 export default function ProfileOverview() {
 
@@ -10,7 +10,7 @@ export default function ProfileOverview() {
 
     return(
         <>
-            <NavBar/>
+            <MenuAppBar pagename="Profiles"/>
             <ListStyled>
                 {profiles?.map(profile =>
                 <li key={profile.username}>

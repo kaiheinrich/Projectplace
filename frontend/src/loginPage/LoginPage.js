@@ -44,7 +44,7 @@ export default function LoginPage() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        postLogin(credentials).then(() => history.push("/profile")).catch(() => setError("Invalid credentials!"));
+        postLogin(credentials).then(() => history.push("/home")).catch(() => setError("Invalid credentials!"));
     }
 
     function handleChange(event) {

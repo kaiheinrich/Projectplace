@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import ProfileContext from "../contexts/ProfileContext";
-import NavBar from "../navBar/NavBar";
 import SkillList from "./SkillList";
 import {Button} from "@material-ui/core";
 import styled from "styled-components/macro";
+import MenuAppBar from "../navBar/NavBar";
 
 export default function ProfileDetails(){
 
@@ -19,7 +19,7 @@ export default function ProfileDetails(){
     return (
         !profile ? null :
         <>
-            <NavBar/>
+            <MenuAppBar pagename="Profile details"/>
             <ProfileDetailsStyled>
                 <div>
                     <h1>{profile.name}</h1>
