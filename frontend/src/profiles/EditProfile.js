@@ -69,7 +69,7 @@ export default function EditProfile() {
                     <div>
                         <ul>
                             {profileData.skills.map((skill, index) =>
-                                <Chip className={classes.skill} label={skill} key={index} onDelete={onDelete}/>
+                                <Chip className={classes.skill} label={skill} key={index} onDelete={() => handleDelete(index)}/>
                             )}
                         </ul>
                         <TextField
@@ -107,14 +107,14 @@ export default function EditProfile() {
 
     function addSkill() {
         if(newskill) {
-            setProfileData({...profileData, skills:[...profileData.skills, newskill]});
+            profileData.skills.push(newskill);
             setNewskill("");
         }
 
     }
 
-    function onDelete() {
-
+    function handleDelete(indexToRemove) {
+        setProfileData({...profileData, skills: profileData.skills.filter((_, index) => index !== indexToRemove)})
     }
 }
 
