@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import UserContext from "./UserContext";
 import axios from "axios";
 import {
+    deleteTokenFromLocalStorage,
     loadTokenFromLocalStorage,
     loadUserCredentialsFromLocalStorage,
     saveTokenToLocalStorage, saveUserCredentialsToLocalStorage
@@ -36,5 +37,9 @@ export default function UserContextProvider({children}) {
             .post("/auth/login", credentials)
             .then(response => setToken(response.data));
 
-    return <UserContext.Provider value={{token, tokenIsValid, postLogin, userCredentials, setToken}}>{children}</UserContext.Provider>;
+    const logout = () =>
+        deleteTokenFromLocalStorage();
+
+
+    return <UserContext.Provider value={{token, tokenIsValid, postLogin, userCredentials, logout}}>{children}</UserContext.Provider>;
 }
