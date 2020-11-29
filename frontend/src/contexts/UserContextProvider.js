@@ -41,8 +41,8 @@ export default function UserContextProvider({children}) {
         deleteTokenFromLocalStorage();
 
     const postSignUp = (username, password) =>
-        axios.
-            post("auth/signup", {username, password})
+        axios
+            .post("auth/signup", {username, password})
             .then(response => response.data)
 
 
