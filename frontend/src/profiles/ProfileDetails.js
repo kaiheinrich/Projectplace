@@ -5,8 +5,11 @@ import SkillList from "./SkillList";
 import {Button} from "@material-ui/core";
 import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 export default function ProfileDetails(){
+
+    const classes = useStyles();
 
     const {username} = useParams();
     const {profiles} = useContext(ProfileContext);
@@ -27,11 +30,21 @@ export default function ProfileDetails(){
                     <h4>{profile.birthday}</h4>
                     <SkillList skills={profile.skills}/>
                 </div>
-                <Button className="button" variant="contained" onClick={handleClick} color="secondary">Back to profiles</Button>
+                <Button className={classes.button} variant="contained" onClick={handleClick} >Back to profiles</Button>
             </ProfileDetailsStyled>
         </>
     );
 }
+
+const useStyles = makeStyles({
+    button: {
+        backgroundColor: "#ec5864",
+        color: "white",
+        borderRadius: "10px",
+        fontSize: "0.8em",
+        padding: "8px"
+    }
+});
 
 const ProfileDetailsStyled = styled.section`
   display: grid;

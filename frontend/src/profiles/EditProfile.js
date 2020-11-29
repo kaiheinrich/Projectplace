@@ -13,7 +13,8 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
     skill: {
         margin: "4px",
-        backgroundColor: "#d7385e"
+        backgroundColor: "#d7385e",
+        color: "white"
     }
 }));
 

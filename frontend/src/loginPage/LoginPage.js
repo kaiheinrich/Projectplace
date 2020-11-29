@@ -3,6 +3,17 @@ import styled from "styled-components/macro";
 import UserContext from "../contexts/UserContext";
 import {Link, useHistory} from "react-router-dom";
 import {Button, TextField, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+    input: {
+        backgroundColor: "lightgrey"
+    },
+    link: {
+        backgroundColor: "white",
+        padding: "8px"
+    }
+}));
 
 const initialCredentials = {
     username: "",
@@ -11,6 +22,7 @@ const initialCredentials = {
 
 export default function LoginPage() {
 
+    const classes = useStyles();
     const [credentials, setCredentials] = useState(initialCredentials);
     const {postLogin} = useContext(UserContext);
     const history = useHistory();
@@ -27,17 +39,19 @@ export default function LoginPage() {
                         value={credentials.username}
                         onChange={handleChange}
                         type="text"
-                        variant="outlined"/>
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
                     <TextField
                         name="password"
                         label="Password"
                         value={credentials.password}
                         onChange={handleChange}
                         type="password"
-                        variant="outlined"/>
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
                     <Button type="submit">Login</Button>
                 {error && <div>{error}</div>}
-                <Link to="/signup"><Typography>You want to be part of the community? Sign up here!</Typography></Link>
+                <Link to="/signup"><Typography className={classes.link}>You want to be part of the community? Sign up here!</Typography></Link>
                 </Form>
             </main>
         </>

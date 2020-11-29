@@ -14,7 +14,7 @@ export default function ProfileOverviewItem({profile}) {
     const history = useHistory();
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} variant="elevation">
             <CardContent>
                 <Typography variant="h5" component="h2">
                     {profile.name}
@@ -28,7 +28,7 @@ export default function ProfileOverviewItem({profile}) {
                 <SkillList skills={profile.skills}/>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={() => history.push(`/profile/${profile.username}`)}>Learn More</Button>
+                <Button className={classes.button} size="small" onClick={() => history.push(`/profile/${profile.username}`)}>Learn More</Button>
             </CardActions>
         </Card>
     );
@@ -37,6 +37,15 @@ export default function ProfileOverviewItem({profile}) {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
+        backgroundColor: "#ffffff",
+        borderRadius: "20px"
+    },
+    button: {
+        backgroundColor: "#ec5864",
+        color: "white",
+        borderRadius: "10px",
+        fontSize: "0.8em",
+        padding: "8px"
     },
     name: {
         fontSize: 20
