@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useHistory} from "react-router-dom";
+import SkillList from "./SkillList";
 
 export default function ProfileOverviewItem({profile}) {
 
@@ -23,9 +24,8 @@ export default function ProfileOverviewItem({profile}) {
                 </Typography>
                 <Typography variant="body2" component="p">
                     {profile.birthday}
-                    <br />
-                    {profile.skills}
                 </Typography>
+                <SkillList skills={profile.skills}/>
             </CardContent>
             <CardActions>
                 <Button size="small" onClick={() => history.push(`/profile/${profile.username}`)}>Learn More</Button>

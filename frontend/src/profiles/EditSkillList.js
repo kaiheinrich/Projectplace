@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export default function SkillList({skills}) {
+export default function EditSkillList({skills}) {
 
     const classes = useStyles();
 
@@ -29,6 +29,4 @@ export default function SkillList({skills}) {
 const SkillListStyled = styled.ul`
   list-style: none;
   padding: var(--size-m);
-  border: black 1px solid;
 `
-
