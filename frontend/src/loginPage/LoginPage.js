@@ -1,8 +1,8 @@
 import React, {useContext, useState} from "react";
 import styled from "styled-components/macro";
 import UserContext from "../contexts/UserContext";
-import { useHistory } from "react-router-dom";
-import {Button, TextField} from "@material-ui/core";
+import {Link, useHistory} from "react-router-dom";
+import {Button, TextField, Typography} from "@material-ui/core";
 
 const initialCredentials = {
     username: "",
@@ -36,8 +36,9 @@ export default function LoginPage() {
                         type="password"
                         variant="outlined"/>
                     <Button type="submit">Login</Button>
-                </Form>
                 {error && <div>{error}</div>}
+                <Link to="/signup"><Typography>You want to be part of the community? Sign up here!</Typography></Link>
+                </Form>
             </main>
         </>
     );
@@ -66,7 +67,7 @@ const Form = styled.form`
   button {
     padding: var(--size-m);
     border: none;
-    background: var(--red);
+    background: var(--red-dark);
     color: white;
     border-radius: var(--size-s);
     font-size: 1em;
@@ -75,7 +76,9 @@ const Form = styled.form`
 
 const HeaderStyled = styled.header`
   text-align: center;
+  color: white;
+  font-style: italic;
   padding: var(--size-l);
-  background-color: var(--brown);
-  font-size: 115%;
+  background-color: var(--red-dark);
+  font-size: 150%;
 `;

@@ -11,6 +11,8 @@ import EditProfile from "./profiles/EditProfile";
 import ProjectOverview from "./projects/ProjectOverview";
 import ProjectContextProvider from "./contexts/ProjectContextProvider";
 import Home from "./home/Home";
+import SignUpPage from "./signUpPage/SignUpPage";
+import backgroundImage from "./backgroundImage/test.jpg"
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
                   <AppStyled>
                     <Switch>
                         <Route path="/login" component={LoginPage}/>
+                        <Route path="/signup" component={SignUpPage}/>
                         <ProtectedRoute path="/home" component={Home}/>
                         <ProtectedRoute exact path="/profile" component={ProfileOverview}/>
                         <ProtectedRoute exact path="/profile/:username" component={ProfileDetails}/>
@@ -39,6 +42,8 @@ const AppStyled = styled.div`
   display: grid;
   grid-template-rows: min-content 1fr;
   height: 100vh;
-  background-color: var(--greyish-yellow);
+  background-size: cover;
+  background-color: #fdf1dc;
+  background-image: url(${backgroundImage});
   overflow: scroll;
 `;

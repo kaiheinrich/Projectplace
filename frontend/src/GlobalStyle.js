@@ -4,6 +4,13 @@ export default createGlobalStyle`
 
 :root {
 
+   --red-dark: #9f0d2f;
+   --beige: #FDF1DC;
+  
+   --blue-dark: #0a7bdd;
+   //--blue-medium: #;
+   --blue-light: #f2fcff;
+   
    --greyish-yellow: #f8efd4;
    --brown: #edc988;
    --red: #d7385e;
@@ -23,7 +30,7 @@ export default createGlobalStyle`
   
   html, body {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Futura",sans-serif;
   }
   
   body {
