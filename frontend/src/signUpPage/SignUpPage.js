@@ -61,7 +61,10 @@ export default function SignUpPage() {
 
             postSignUp(username, password1)
                 .then(() => history.push("/login"))
-                .catch((error) => setErrorBackend(error.message))
+                .catch((error) => {
+                    console.log(error.response.data.message);
+                    setErrorBackend(error.response.data.message);
+                })
         } catch (error) {
             setErrorFrontend(error.message)
         }

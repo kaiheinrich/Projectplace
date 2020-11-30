@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
     skill: {
         margin: "4px",
-        backgroundColor: "#d7385e"
+        backgroundColor: "#dee7e7"
     }
 }));
 
@@ -29,6 +29,7 @@ export default function SkillList({skills}) {
 const SkillListStyled = styled.ul`
   list-style: none;
   padding: var(--size-m);
-  border: black 1px solid;
+  border: #672d2d 2px dotted;
+  border-radius: 10px;
 `
 
