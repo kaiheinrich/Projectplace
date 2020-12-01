@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import ProfileContext from "../contexts/ProfileContext";
 import TextField from "@material-ui/core/TextField";
-import {updateProfile} from "../service/ProfileService";
+import {updateProfile, uploadProfileImage} from "../service/ProfileService";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
-import {Button} from "@material-ui/core";
+import {Avatar, Button} from "@material-ui/core";
 import MenuAppBar from "../navBar/NavBar";
 import Chip from "@material-ui/core/Chip";
 import {makeStyles} from "@material-ui/core/styles";
@@ -15,6 +15,9 @@ const useStyles = makeStyles(() => ({
         margin: "4px",
         backgroundColor: "#d7385e",
         color: "white"
+    },
+    input: {
+        backgroundColor: "lightgrey"
     }
 }));
 
@@ -25,7 +28,7 @@ export default function EditProfile() {
     const {username} = useParams();
     const {profiles} = useContext(ProfileContext);
     const [profileData, setProfileData] = useState(null);
-    const [newskill, setNewskill] = useState("");
+    const [newSkill, setNewSkill] = useState("");
 
     useEffect(() => {
         const profile = profiles?.find(profile => profile.username === username);
@@ -43,6 +46,8 @@ export default function EditProfile() {
             <MenuAppBar pagename="Edit profile"/>
             <MainStyled>
                 <FormStyled onSubmit={handleSubmit}>
+                    {profileData.imageUrl && <Avatar alt="profile" src={""} />}
+                    <input type="file" onChange={handlePictureChange} />
                     <TextField
                         name="name"
                         label="Name"
@@ -50,7 +55,8 @@ export default function EditProfile() {
                         value={profileData.name}
                         onChange={handleChange}
                         type="text"
-                        variant="outlined"/>
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
                     <TextField
                         name="birthday"
                         label="Birthday"
@@ -58,7 +64,8 @@ export default function EditProfile() {
                         value={profileData.birthday}
                         onChange={handleChange}
                         type="date"
-                        variant="outlined"/>
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
                     <TextField
                         name="location"
                         label="Location"
@@ -66,7 +73,8 @@ export default function EditProfile() {
                         value={profileData.location}
                         onChange={handleChange}
                         type="text"
-                        variant="outlined"/>
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
                     <div>
                         <ul>
                             {profileData.skills.map((skill, index) =>
@@ -77,11 +85,12 @@ export default function EditProfile() {
                         name="skills"
                         label="Add new skill"
                         autoComplete="off"
-                        value={newskill}
-                        onChange={(event) => setNewskill(event.target.value)}
+                        value={newSkill}
+                        onChange={(event) => setNewSkill(event.target.value)}
                         onKeyUp={(event) => event.key === "Enter" && addSkill()}
                         type="text"
-                        variant="outlined"/>
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
                     </div>
                     <Button type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
@@ -98,8 +107,16 @@ export default function EditProfile() {
             profileData.birthday,
             profileData.location,
             profileData.skills,
+            profileData.imageUrl,
             token)
             .then(() => history.push("/profile/"+ profileData.username+ "/edit")).catch(error => console.log(error));
+    }
+
+    function handlePictureChange(event) {
+        const imageFile = event.target.files[0];
+        uploadProfileImage(imageFile, token)
+            .then(data => setProfileData({...profileData, imageUrl: data}))
+            .catch(error => console.log(error));
     }
 
     function handleChange(event) {
@@ -107,9 +124,9 @@ export default function EditProfile() {
     }
 
     function addSkill() {
-        if(newskill) {
-            profileData.skills.push(newskill);
-            setNewskill("");
+        if(newSkill) {
+            profileData.skills.push(newSkill);
+            setNewSkill("");
         }
 
     }

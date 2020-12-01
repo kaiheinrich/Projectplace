@@ -18,4 +18,5 @@ public class ProfileDto {
     private LocalDate birthday;
     private String location;
     private List<String> skills;
+    private String imageUrl;
 }
