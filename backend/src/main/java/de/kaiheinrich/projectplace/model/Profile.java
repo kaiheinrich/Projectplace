@@ -24,4 +24,5 @@ public class Profile {
     private String location;
     private List<String> skills;
     private String imageUrl;
+    private String imageName;
 }

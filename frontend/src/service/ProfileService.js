@@ -9,8 +9,8 @@ const header = (token) => ({
 export const getProfiles = (token) =>
     axios.get("/api/profiles", header(token)).then(response => response.data);
 
-export const updateProfile = (username, name, birthday, location, skills, imageUrl, token) =>
-    axios.put("/api/profiles/" + username, {name, birthday, location, skills, imageUrl}, header(token))
+export const updateProfile = (username, name, birthday, location, skills, imageName, token) =>
+    axios.put("/api/profiles/" + username, {name, birthday, location, skills, imageName}, header(token))
         .then(response => response.data);
 
 export const uploadProfileImage = (file, token) => {

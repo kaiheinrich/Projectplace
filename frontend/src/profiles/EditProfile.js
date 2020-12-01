@@ -46,7 +46,7 @@ export default function EditProfile() {
             <MenuAppBar pagename="Edit profile"/>
             <MainStyled>
                 <FormStyled onSubmit={handleSubmit}>
-                    {profileData.imageUrl && <Avatar alt="profile" src={""} />}
+                    {profileData.imageName ? <Avatar alt="profile" src={profileData.imageUrl}/> : <Avatar/>}
                     <input type="file" onChange={handlePictureChange} />
                     <TextField
                         name="name"
@@ -107,16 +107,16 @@ export default function EditProfile() {
             profileData.birthday,
             profileData.location,
             profileData.skills,
-            profileData.imageUrl,
+            profileData.imageName,
             token)
             .then(() => history.push("/profile/"+ profileData.username+ "/edit")).catch(error => console.log(error));
     }
 
     function handlePictureChange(event) {
         const imageFile = event.target.files[0];
-        uploadProfileImage(imageFile, token)
-            .then(data => setProfileData({...profileData, imageUrl: data}))
-            .catch(error => console.log(error));
+        imageFile ? uploadProfileImage(imageFile, token)
+            .then(data => setProfileData({...profileData, imageName: data}))
+            .catch(error => console.log(error)) : setProfileData({...profileData, imageName: profileData.imageName})
     }
 
     function handleChange(event) {

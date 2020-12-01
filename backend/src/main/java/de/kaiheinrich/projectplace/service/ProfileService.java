@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,14 +53,13 @@ public class ProfileService {
 
         for(Profile profile : profileList) {
 
-            if(!profile.getImageUrl().equals("")){
+            if(!profile.getImageName().equals("")){
                 GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                        new GeneratePresignedUrlRequest(bucketName, profile.getImageUrl())
+                        new GeneratePresignedUrlRequest(bucketName, profile.getImageName())
                                 .withMethod(HttpMethod.GET)
                                 .withExpiration(expiration);
                 profile.setImageUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
             }
-
         }
         return profileList;
     }
@@ -78,7 +75,7 @@ public class ProfileService {
                 .location(profileDto.getLocation())
                 .skills(profileDto.getSkills())
                 .name(profileDto.getName())
-                .imageUrl(profileDto.getImageUrl())
+                .imageName(profileDto.getImageName())
                 .build();
 
         return profileDb.save(updatedProfile);

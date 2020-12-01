@@ -17,7 +17,7 @@ export default function ProfileOverviewItem({profile}) {
     return (
         <Card className={classes.root} variant="elevation">
             <CardContent>
-                {profile.imageUrl && <Avatar alt="profile image" src={profile.imageUrl}/>}
+                {profile.imageUrl && <Avatar src={profile.imageUrl}/>}
                 <Typography variant="h5" component="h2">
                     {profile.name}
                 </Typography>
@@ -65,11 +65,4 @@ const useStyles = makeStyles({
     },
 });
 
-/*
-https://examplebucket.s3.amazonaws.com/test.txt
-// ?X-Amz-Algorithm=AWS4-HMAC-SHA256
-// &X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request
-// &X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400
-// &X-Amz-SignedHeaders=host
-// &X-Amz-Signature=aeeed9bbccd4d02ee5c0109b86d86835f995330da4c265957d157751f604d404
-*/
+
