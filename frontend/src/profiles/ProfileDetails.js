@@ -28,8 +28,8 @@ export default function ProfileDetails(){
                 <div>
                     <Card className={classes.card}>
                     <h1>{profile.name}</h1>
-                    <h3>{profile.location}</h3>
-                    <h4>{profile.birthday}</h4>
+                    <AddressStyled>Location: {profile.location}</AddressStyled>
+                    <BirthdayStyled>Birthday: {profile.birthday}</BirthdayStyled>
                     <SkillList skills={profile.skills}/>
                     </Card>
                 </div>
@@ -60,4 +60,12 @@ const ProfileDetailsStyled = styled.section`
   overflow: scroll;
   grid-template-rows: 1fr min-content;
   padding: var(--size-m);
+`
+
+const AddressStyled = styled.address`
+  margin-bottom: var(--size-s);
+`
+
+const BirthdayStyled = styled.time`
+  margin-bottom: var(--size-xl);
 `

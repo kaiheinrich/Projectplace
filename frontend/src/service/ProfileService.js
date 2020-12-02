@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const header = (token) => ({
+const header = (token, options = {}) => ({
     headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        ...options
     }
 });
 
@@ -16,10 +17,6 @@ export const updateProfile = (username, name, birthday, location, skills, imageN
 export const uploadProfileImage = (file, token) => {
     const formData = new FormData();
     formData.append('image', file);
-    return axios.post('/api/profiles/image', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`
-        },
-    }).then(response => response.data);
+    return axios.post('/api/profiles/image', formData, header(token, {'Content-Type': 'multipart/form-data'}))
+        .then(response => response.data);
 }

@@ -47,7 +47,7 @@ export default function EditProfile() {
             <MainStyled>
                 <FormStyled onSubmit={handleSubmit}>
                     {profileData.imageName ? <Avatar alt="profile" src={profileData.imageUrl}/> : <Avatar/>}
-                    <input type="file" onChange={handlePictureChange} />
+                    <input type="file" onChange={handlePictureChange} accept="image/*"/>
                     <TextField
                         name="name"
                         label="Name"

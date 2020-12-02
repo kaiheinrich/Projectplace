@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import Chip from '@material-ui/core/Chip';
 import {makeStyles} from "@material-ui/core/styles";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     skill: {
@@ -16,7 +17,7 @@ export default function SkillList({skills}) {
 
     return(
         <>
-            <h5>Skills:</h5>
+            <Typography variant="h6">Skills:</Typography>
             <SkillListStyled>
                 {skills?.map((skill, index) =>
                     <Chip className={classes.skill} label={skill} key={index}/>
@@ -29,7 +30,8 @@ export default function SkillList({skills}) {
 const SkillListStyled = styled.ul`
   list-style: none;
   padding: var(--size-m);
-  border: #672d2d 2px dotted;
-  border-radius: 10px;
+  border-bottom: #672d2d 1px solid;
+  border-top: #672d2d 1px solid;
+  //border-radius: 10px;
 `
 

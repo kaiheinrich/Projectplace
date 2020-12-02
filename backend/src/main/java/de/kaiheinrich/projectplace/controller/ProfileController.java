@@ -2,7 +2,7 @@ package de.kaiheinrich.projectplace.controller;
 
 import de.kaiheinrich.projectplace.dto.ProfileDto;
 import de.kaiheinrich.projectplace.model.Profile;
-import de.kaiheinrich.projectplace.service.ProfileImageUploadAWSService;
+import de.kaiheinrich.projectplace.service.ImageUploadAWSService;
 import de.kaiheinrich.projectplace.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,12 @@ import java.util.Objects;
 public class ProfileController {
 
     private final ProfileService profileService;
-    private final ProfileImageUploadAWSService profileImageUploadAWSService;
+    private final ImageUploadAWSService imageUploadAWSService;
 
     @Autowired
-    public ProfileController(ProfileService profileService, ProfileImageUploadAWSService profileImageUploadAWSService) {
+    public ProfileController(ProfileService profileService, ImageUploadAWSService imageUploadAWSService) {
         this.profileService = profileService;
-        this.profileImageUploadAWSService = profileImageUploadAWSService;
+        this.imageUploadAWSService = imageUploadAWSService;
     }
 
     @GetMapping
@@ -46,6 +46,6 @@ public class ProfileController {
 
     @PostMapping("/image")
     public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
-        return profileImageUploadAWSService.upload(file);
+        return imageUploadAWSService.upload(file);
     }
 }

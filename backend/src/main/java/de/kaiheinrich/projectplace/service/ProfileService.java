@@ -1,55 +1,41 @@
 package de.kaiheinrich.projectplace.service;
 
 import com.amazonaws.HttpMethod;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
 import de.kaiheinrich.projectplace.model.Profile;
+import de.kaiheinrich.projectplace.utils.AmazonS3ClientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProfileService {
 
-    @Value("${aws.access.key}")
-    private String accessKey;
-
-    @Value("${aws.secret.key}")
-    private String secretKey;
+    @Value("${aws.bucket.name}")
+    private String bucketName;
 
     private final ProfileMongoDb profileDb;
-
+    private final AmazonS3ClientUtils s3ClientUtils;
 
     @Autowired
-    public ProfileService(ProfileMongoDb profileDb) {
+    public ProfileService(ProfileMongoDb profileDb, AmazonS3ClientUtils s3ClientUtils) {
         this.profileDb = profileDb;
+        this.s3ClientUtils = s3ClientUtils;
     }
 
     public List<Profile> getProfiles() {
 
-        Regions clientRegion = Regions.EU_CENTRAL_1;
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-        String bucketName = "kais-super-bucket";
-
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withRegion(clientRegion).withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .build();
-
         List<Profile> profileList = profileDb.findAll();
 
-        java.util.Date expiration = new java.util.Date();
-        long expTimeMillis = expiration.getTime();
-        expTimeMillis += 1000 * 60 * 60;
-        expiration.setTime(expTimeMillis);
+        Date expiration = getExpirationTime();
+        AmazonS3 s3Client = s3ClientUtils.getS3Client();
 
         for(Profile profile : profileList) {
 
@@ -79,5 +65,13 @@ public class ProfileService {
                 .build();
 
         return profileDb.save(updatedProfile);
+    }
+
+    private Date getExpirationTime() {
+        Date expiration = new Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * 60;
+        expiration.setTime(expTimeMillis);
+        return expiration;
     }
 }
