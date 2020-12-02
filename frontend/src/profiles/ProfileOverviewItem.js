@@ -9,6 +9,7 @@ import {useHistory} from "react-router-dom";
 import SkillList from "./SkillList";
 import {Avatar} from "@material-ui/core";
 import styled from "styled-components/macro";
+import Box from "@material-ui/core/Box";
 
 export default function ProfileOverviewItem({profile}) {
 
@@ -27,9 +28,9 @@ export default function ProfileOverviewItem({profile}) {
                             Location: {profile.location}
                         </Typography>
                     </div>
-                    <div class="avatarPosition">
+                    <Box component={'div'} className={classes.avatarPosition}>
                         {profile.imageUrl && <Avatar className={classes.avatar} src={profile.imageUrl}/>}
-                    </div>
+                    </Box>
                 </DivStyled>
                 <SkillList skills={profile.skills}/>
             </CardContent>
@@ -73,15 +74,14 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 20,
-    }
+    },
+    avatarPosition: {
+        alignSelf: "start",
+        justifySelf: "end"
+}
 });
 
 const DivStyled = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  
-  .avatarPosition {
-    align-self: start;
-    justify-self: end;
-  }
 `

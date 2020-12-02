@@ -11,7 +11,6 @@ import Card from "@material-ui/core/Card";
 export default function ProfileDetails(){
 
     const classes = useStyles();
-
     const {username} = useParams();
     const {profiles} = useContext(ProfileContext);
     const profile = profiles?.find(profile => profile.username === username);
@@ -27,10 +26,10 @@ export default function ProfileDetails(){
             <ProfileDetailsStyled>
                 <div>
                     <Card className={classes.card}>
-                    <h1>{profile.name}</h1>
-                    <AddressStyled>Location: {profile.location}</AddressStyled>
-                    <BirthdayStyled>Birthday: {profile.birthday}</BirthdayStyled>
-                    <SkillList skills={profile.skills}/>
+                        <h1>{profile.name}</h1>
+                        <AddressStyled>Location: {profile.location}</AddressStyled>
+                        <BirthdayStyled>Birthday: {profile.birthday}</BirthdayStyled>
+                        <SkillList skills={profile.skills}/>
                     </Card>
                 </div>
                 <Button className={classes.button} variant="contained" onClick={handleClick} >Back to profiles</Button>

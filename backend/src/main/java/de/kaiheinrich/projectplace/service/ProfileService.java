@@ -31,14 +31,11 @@ public class ProfileService {
     }
 
     public List<Profile> getProfiles() {
-
         List<Profile> profileList = profileDb.findAll();
-
         Date expiration = getExpirationTime();
         AmazonS3 s3Client = s3ClientUtils.getS3Client();
 
         for(Profile profile : profileList) {
-
             if(!profile.getImageName().equals("")){
                 GeneratePresignedUrlRequest generatePresignedUrlRequest =
                         new GeneratePresignedUrlRequest(bucketName, profile.getImageName())
