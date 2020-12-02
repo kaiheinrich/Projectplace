@@ -55,7 +55,7 @@ export default function MenuAppBar(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar className={classes.appBar} position="static">
+            <AppBar className={classes.appBar} position="fixed">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />

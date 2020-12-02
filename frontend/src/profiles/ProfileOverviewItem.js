@@ -8,6 +8,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useHistory} from "react-router-dom";
 import SkillList from "./SkillList";
 import {Avatar} from "@material-ui/core";
+import styled from "styled-components/macro";
 
 export default function ProfileOverviewItem({profile}) {
 
@@ -17,20 +18,23 @@ export default function ProfileOverviewItem({profile}) {
     return (
         <Card className={classes.root} variant="elevation">
             <CardContent>
-                {profile.imageUrl && <Avatar src={profile.imageUrl}/>}
-                <Typography variant="h5" component="h2">
-                    {profile.name}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    {profile.location}
-                </Typography>
-                <Typography variant="body2" component="p">
-                    {profile.birthday}
-                </Typography>
+                <DivStyled>
+                    <div>
+                        <Typography variant="h5" component="h2">
+                            {profile.name}
+                        </Typography>
+                        <Typography className={classes.pos} color="textSecondary">
+                            Location: {profile.location}
+                        </Typography>
+                    </div>
+                    <div class="avatarPosition">
+                        {profile.imageUrl && <Avatar className={classes.avatar} src={profile.imageUrl}/>}
+                    </div>
+                </DivStyled>
                 <SkillList skills={profile.skills}/>
             </CardContent>
-            <CardActions>
-                <Button className={classes.button} size="small" onClick={() => history.push(`/profile/${profile.username}`)}>Learn More</Button>
+            <CardActions className={classes.buttonPosition}>
+                <Button className={classes.button} size="small" onClick={() => history.push(`/profile/${profile.username}`)}>Check out dude</Button>
             </CardActions>
         </Card>
     );
@@ -46,8 +50,15 @@ const useStyles = makeStyles({
         backgroundColor: "#9F0D2F",
         color: "white",
         borderRadius: "10px",
-        fontSize: "0.8em",
+        fontSize: "0.9em",
         padding: "8px"
+    },
+    buttonPosition: {
+        justifyContent: "center"
+    },
+    avatar: {
+        width: "60px",
+        height: "60px"
     },
     name: {
         fontSize: 20
@@ -61,8 +72,16 @@ const useStyles = makeStyles({
         fontSize: 14,
     },
     pos: {
-        marginBottom: 12,
-    },
+        marginBottom: 20,
+    }
 });
 
-
+const DivStyled = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  
+  .avatarPosition {
+    align-self: start;
+    justify-self: end;
+  }
+`
