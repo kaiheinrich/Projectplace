@@ -14,6 +14,7 @@ import Home from "./home/Home";
 import SignUpPage from "./signUpPage/SignUpPage";
 import backgroundImage from "./backgroundImage/test.jpg"
 import ProjectDetails from "./projects/ProjectDetails";
+import EditProject from "./projects/EditProject";
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
                         <ProtectedRoute exact path="/profile/:username" component={ProfileDetails}/>
                         <ProtectedRoute path="/profile/:username/edit" component={EditProfile}/>
                         <ProtectedRoute exact path="/project" component={ProjectOverview}/>
-                        <ProtectedRoute path="/project/:id" component={ProjectDetails}/>
+                        <ProtectedRoute exact path="/project/:id" component={ProjectDetails}/>
+                        <ProtectedRoute path="/project/:id/edit" component={EditProject}/>
                     </Switch>
                   </AppStyled>
               </ProjectContextProvider>

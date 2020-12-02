@@ -1,12 +1,13 @@
-import React, {useContext} from "react";
-import {useParams} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {useParams, useHistory} from "react-router-dom";
 import ProjectContext from "../contexts/ProjectContext";
 import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
-import {Typography} from "@material-ui/core";
+import {Button, Typography} from "@material-ui/core";
+import UserContext from "../contexts/UserContext";
 
 export default function ProjectDetails() {
 
@@ -14,6 +15,13 @@ export default function ProjectDetails() {
     const {id} = useParams();
     const {projects} = useContext(ProjectContext);
     const project = projects?.find(project => project.id === id);
+    const [buttonEnabled, setButtonEnabled] = useState(false);
+    const {userCredentials} = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        project?.projectOwner === userCredentials.sub && setButtonEnabled(true)
+    }, [project, userCredentials])
 
     return(
         !project ? null :
@@ -23,6 +31,7 @@ export default function ProjectDetails() {
                 <Card className={classes.card}>
                     <Typography variant="h4">{project.title}</Typography>
                     <p>created by: {project.projectOwner}</p>
+                    {buttonEnabled ? <Button onClick={handleClick}>Edit project</Button> : null}
                     <hr/>
                     <p>Description:</p>
                     <Box component="div">{project.description}</Box>
@@ -31,6 +40,10 @@ export default function ProjectDetails() {
             </ProjectDetailsStyled>
         </>
     );
+
+    function handleClick() {
+        history.push("/project/" + project.id + "/edit");
+    }
 }
 
 const ProjectDetailsStyled = styled.section`

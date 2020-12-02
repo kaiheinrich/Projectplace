@@ -12,3 +12,7 @@ export const getProjects = (token) =>
 export const addProject = (title, description, token) =>
     axios.post("/api/projects", {title, description}, header(token))
         .then(response => response.data);
+
+export const updateProject = (id, title, description, token) =>
+    axios.put("/api/projects/" + id, {title, description}, header(token))
+        .then(response => response.data);
