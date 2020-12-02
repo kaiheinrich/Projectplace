@@ -134,10 +134,6 @@ export default function Home() {
                     </ButtonBase>
                 ))}
             </div>
-            <section>
-                {/*<Button onClick={() => history.push("/profile")}>See profiles</Button>
-                //<Button onClick={() => history.push("/project")}>See projects</Button>*/}
-            </section>
         </>
     );
 }
