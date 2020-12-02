@@ -13,7 +13,7 @@ export default function ProjectOverviewItem({project}) {
     const history = useHistory();
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} variant="elevation">
             <CardContent>
                 <Typography variant="h5" component="h2">
                     {project.title}
@@ -24,9 +24,14 @@ export default function ProjectOverviewItem({project}) {
                 <Typography variant="body2" component="p">
                     {project.description}
                 </Typography>
+                <hr/>
             </CardContent>
-            <CardActions>
-                <Button size="small" onClick={() => history.push(`/project/${project.id}`)}>Learn More</Button>
+            <CardContent>
+            <img width="100%" alt="project" src="./images/man-repairing-bike-confident-young-600w-499233697.webp"/>
+                <hr/>
+            </CardContent>
+            <CardActions className={classes.buttonPosition}>
+                <Button className={classes.button} size="small" onClick={() => history.push(`/project/${project.id}`)}>Check out project</Button>
             </CardActions>
         </Card>
     );
@@ -35,6 +40,15 @@ export default function ProjectOverviewItem({project}) {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
+        backgroundColor: "#FFF4F4",
+        borderRadius: "20px"
+    },
+    button: {
+        backgroundColor: "#9F0D2F",
+        color: "white",
+        borderRadius: "10px",
+        fontSize: "0.9em",
+        padding: "8px"
     },
     name: {
         fontSize: 20
@@ -50,4 +64,7 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
+    buttonPosition: {
+        justifyContent: "center"
+    }
 });
