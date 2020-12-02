@@ -96,6 +96,7 @@ export default function MenuAppBar(props) {
                     )}
                 </Toolbar>
             </AppBar>
+            <Toolbar/>
         </div>
     );
 }
