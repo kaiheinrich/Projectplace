@@ -27,7 +27,7 @@ export default function ProjectOverviewItem({project}) {
                 <hr/>
             </CardContent>
             <CardContent>
-            <img width="100%" src="./images/man-repairing-bike-confident-young-600w-499233697.webp"/>
+            <img width="100%" alt="image" src="./images/man-repairing-bike-confident-young-600w-499233697.webp"/>
                 <hr/>
             </CardContent>
             <CardActions className={classes.buttonPosition}>
