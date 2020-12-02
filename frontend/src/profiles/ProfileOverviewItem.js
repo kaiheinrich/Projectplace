@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useHistory} from "react-router-dom";
 import SkillList from "./SkillList";
+import {Avatar} from "@material-ui/core";
 
 export default function ProfileOverviewItem({profile}) {
 
@@ -16,6 +17,7 @@ export default function ProfileOverviewItem({profile}) {
     return (
         <Card className={classes.root} variant="elevation">
             <CardContent>
+                {profile.imageUrl && <Avatar src={profile.imageUrl}/>}
                 <Typography variant="h5" component="h2">
                     {profile.name}
                 </Typography>
@@ -37,11 +39,11 @@ export default function ProfileOverviewItem({profile}) {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-        backgroundColor: "#ffffff",
+        backgroundColor: "#FFF4F4",
         borderRadius: "20px"
     },
     button: {
-        backgroundColor: "#ec5864",
+        backgroundColor: "#9F0D2F",
         color: "white",
         borderRadius: "10px",
         fontSize: "0.8em",
@@ -62,3 +64,5 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
+
+

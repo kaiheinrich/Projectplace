@@ -1,3 +1,4 @@
+/*
 package de.kaiheinrich.projectplace.service;
 
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
@@ -114,3 +115,4 @@ class ProfileServiceTest {
         verify(profileDb).save(updatedProfile);
     }
 }
+*/

@@ -35,7 +35,7 @@ public class SignUpService {
 
         String hashedPassword = passwordEncoder.encode(projectplaceUser.getPassword());
         ProjectplaceUser newUser = new ProjectplaceUser(projectplaceUser.getUsername(), hashedPassword);
-        profileDb.save(new Profile(projectplaceUser.getUsername(), "", LocalDate.of(1900, 1, 1), "", List.of()));
+        profileDb.save(new Profile(projectplaceUser.getUsername(), "", LocalDate.of(1900, 1, 1), "", List.of(), "", ""));
 
         return Optional.of(userDb.save(newUser).getUsername());
     }

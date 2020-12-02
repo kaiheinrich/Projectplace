@@ -6,6 +6,7 @@ import {Button} from "@material-ui/core";
 import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Card from "@material-ui/core/Card";
 
 export default function ProfileDetails(){
 
@@ -25,10 +26,12 @@ export default function ProfileDetails(){
             <MenuAppBar pagename="Profile details"/>
             <ProfileDetailsStyled>
                 <div>
+                    <Card className={classes.card}>
                     <h1>{profile.name}</h1>
                     <h3>{profile.location}</h3>
                     <h4>{profile.birthday}</h4>
                     <SkillList skills={profile.skills}/>
+                    </Card>
                 </div>
                 <Button className={classes.button} variant="contained" onClick={handleClick} >Back to profiles</Button>
             </ProfileDetailsStyled>
@@ -43,6 +46,12 @@ const useStyles = makeStyles({
         borderRadius: "10px",
         fontSize: "0.8em",
         padding: "8px"
+    },
+
+    card: {
+        height: "82vh",
+        padding: "8px",
+        backgroundColor: "#FFF4F4"
     }
 });
 

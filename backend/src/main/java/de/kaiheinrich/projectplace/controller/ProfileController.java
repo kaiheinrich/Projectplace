@@ -2,12 +2,15 @@ package de.kaiheinrich.projectplace.controller;
 
 import de.kaiheinrich.projectplace.dto.ProfileDto;
 import de.kaiheinrich.projectplace.model.Profile;
+import de.kaiheinrich.projectplace.service.ProfileImageUploadAWSService;
 import de.kaiheinrich.projectplace.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
@@ -17,10 +20,12 @@ import java.util.Objects;
 public class ProfileController {
 
     private final ProfileService profileService;
+    private final ProfileImageUploadAWSService profileImageUploadAWSService;
 
     @Autowired
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService, ProfileImageUploadAWSService profileImageUploadAWSService) {
         this.profileService = profileService;
+        this.profileImageUploadAWSService = profileImageUploadAWSService;
     }
 
     @GetMapping
@@ -37,5 +42,10 @@ public class ProfileController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return profileService.updateProfile(profileDto, username);
+    }
+
+    @PostMapping("/image")
+    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
+        return profileImageUploadAWSService.upload(file);
     }
 }

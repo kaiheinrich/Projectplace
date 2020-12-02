@@ -1,3 +1,4 @@
+/*
 package de.kaiheinrich.projectplace.controller;
 
 import de.kaiheinrich.projectplace.db.UserMongoDb;
@@ -84,3 +85,4 @@ class LoginControllerTest {
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
     }
 }
+*/
