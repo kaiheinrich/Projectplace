@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,6 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import MessageIcon from '@material-ui/icons/Message';
+import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -29,14 +31,43 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar(props) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const openProfileMenu = Boolean(anchorEl);
+    const [mainAnchorEl, setMainAnchorEl] = useState(null);
+    const openMainMenu = Boolean(mainAnchorEl);
     const history = useHistory();
     const {userCredentials, logout} = useContext(UserContext);
 
-    const handleMenu = (event) => {
+    const handleProfileMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+    const handleProfileMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleMainMenu = (event) => {
+        setMainAnchorEl(event.currentTarget);
+    };
+
+    const handleMainMenuClose = () => {
+        setMainAnchorEl(null);
+    };
+
+    const handleGoToHome = () => {
+        history.push(`/home`);
+        setMainAnchorEl(null);
+    }
+
+    const handleGoToProfileOverview = () => {
+        history.push(`/profile`);
+        setMainAnchorEl(null);
+    }
+
+    const handleGoToProjectOverview = () => {
+        history.push(`/project`);
+        setMainAnchorEl(null);
+    }
 
     const handleGoToProfile = () => {
         history.push(`/profile/${userCredentials.sub}/edit`);
@@ -49,50 +80,84 @@ export default function MenuAppBar(props) {
         setAnchorEl(null);
     }
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar} position="fixed">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
+                    {(
+                    <div>
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="menu"
+                            aria-controls="main-menu"
+                            aria-haspopup="true"
+                            onClick={handleMainMenu}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            id="main-menu"
+                            open={openMainMenu}
+                            anchorEl={mainAnchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                        onClose={handleMainMenuClose}>
+                            <MenuItem onClick={handleGoToHome}>Home</MenuItem>
+                            <MenuItem onClick={handleGoToProfileOverview}>Profiles</MenuItem>
+                            <MenuItem onClick={handleGoToProjectOverview}>Projects</MenuItem>
+                        </Menu>
+                    </div>
+                    )}
                     <Typography variant="h6" className={classes.title}>
                         {props.pagename}
                     </Typography>
+                    <IconButton
+                        color="inherit">
+                        <SearchIcon/>
+                    </IconButton>
+                    <IconButton
+                        color="inherit">
+                        <MessageIcon/>
+                    </IconButton>
                     {(
-                        <div>
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleGoToProfile}>Profile</MenuItem>
-                                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                            </Menu>
-                        </div>
+                    <div>
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleProfileMenu}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={openProfileMenu}
+                            onClose={handleProfileMenuClose}
+                        >
+                            <MenuItem onClick={handleGoToProfile}>Profile</MenuItem>
+                            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                        </Menu>
+                    </div>
                     )}
                 </Toolbar>
             </AppBar>
