@@ -24,14 +24,12 @@ export default function ProfileDetails(){
         <>
             <MenuAppBar pagename="Profile details"/>
             <ProfileDetailsStyled>
-                <div>
-                    <Card className={classes.card}>
-                        <h1>{profile.name}</h1>
-                        <AddressStyled>Location: {profile.location}</AddressStyled>
-                        <BirthdayStyled>Birthday: {profile.birthday}</BirthdayStyled>
-                        <SkillList skills={profile.skills}/>
-                    </Card>
-                </div>
+                <Card className={classes.card}>
+                    <h1>{profile.name}</h1>
+                    <AddressStyled>Location: {profile.location}</AddressStyled>
+                    <BirthdayStyled>Birthday: {profile.birthday}</BirthdayStyled>
+                    <SkillList skills={profile.skills}/>
+                </Card>
                 <Button className={classes.button} variant="contained" onClick={handleClick} >Back to profiles</Button>
             </ProfileDetailsStyled>
         </>

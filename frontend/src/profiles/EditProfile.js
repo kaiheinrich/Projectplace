@@ -109,7 +109,8 @@ export default function EditProfile() {
             profileData.skills,
             profileData.imageName,
             token)
-            .then(() => history.push("/profile/"+ profileData.username+ "/edit")).catch(error => console.log(error));
+            .then(() => history.push("/profile/"+ profileData.username+ "/edit"))
+            .catch(error => console.log(error));
     }
 
     function handlePictureChange(event) {
