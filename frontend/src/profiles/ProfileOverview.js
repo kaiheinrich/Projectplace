@@ -3,6 +3,7 @@ import ProfileContext from "../contexts/ProfileContext";
 import ProfileOverviewItem from "./ProfileOverviewItem";
 import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
+import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 export default function ProfileOverview() {
 
@@ -18,6 +19,7 @@ export default function ProfileOverview() {
                 </li>
                 )}
             </ListStyled>
+            <AddProjectButton/>
         </>
         );
 }

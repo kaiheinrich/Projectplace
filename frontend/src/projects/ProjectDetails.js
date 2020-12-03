@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import {Button, Typography} from "@material-ui/core";
 import UserContext from "../contexts/UserContext";
+import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 export default function ProjectDetails() {
 
@@ -38,6 +39,7 @@ export default function ProjectDetails() {
                     <p>Impressions:</p>
                 </Card>
             </ProjectDetailsStyled>
+            <AddProjectButton/>
         </>
     );
 

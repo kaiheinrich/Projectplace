@@ -4,6 +4,7 @@ import MenuAppBar from "../navBar/NavBar";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 const images = [
     {
@@ -134,6 +135,7 @@ export default function Home() {
                     </ButtonBase>
                 ))}
             </div>
+            <AddProjectButton/>
         </>
     );
 }

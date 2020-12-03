@@ -31,9 +31,9 @@ function App() {
                         <ProtectedRoute exact path="/profile/:username" component={ProfileDetails}/>
                         <ProtectedRoute exact path="/profile/:username/edit" component={EditProfile}/>
                         <ProtectedRoute exact path="/project" component={ProjectOverview}/>
+                        <ProtectedRoute exact path="/project/add" component={AddProject}/>
                         <ProtectedRoute exact path="/project/:id" component={ProjectDetails}/>
                         <ProtectedRoute exact path="/project/:id/edit" component={EditProject}/>
-                        <ProtectedRoute exact path="/add" component={AddProject}/>
                     </Switch>
                   </AppStyled>
               </ProjectContextProvider>
