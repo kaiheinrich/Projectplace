@@ -3,6 +3,7 @@ import ProjectContext from "../contexts/ProjectContext";
 import styled from "styled-components/macro";
 import ProjectOverviewItem from "./ProjectOverviewItem";
 import MenuAppBar from "../navBar/NavBar";
+import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 export default function ProjectOverview() {
 
@@ -18,6 +19,7 @@ export default function ProjectOverview() {
                     </li>
                 )}
             </ListStyled>
+            <AddProjectButton/>
         </>
     );
 }
@@ -30,3 +32,4 @@ const ListStyled = styled.ul`
   gap: var(--size-l);
   padding: 0;
 `;
+

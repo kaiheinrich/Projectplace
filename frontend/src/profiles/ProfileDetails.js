@@ -7,6 +7,7 @@ import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Card from "@material-ui/core/Card";
+import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 export default function ProfileDetails(){
 
@@ -32,6 +33,7 @@ export default function ProfileDetails(){
                 </Card>
                 <Button className={classes.button} variant="contained" onClick={handleClick} >Back to profiles</Button>
             </ProfileDetailsStyled>
+            <AddProjectButton/>
         </>
     );
 }
