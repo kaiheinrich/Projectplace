@@ -97,6 +97,7 @@ public class ProfileService {
 
         senderProfile.getSentMessages().add(message);
         recipientProfile.getReceivedMessages().add(message);
+        profileDb.saveAll(List.of(senderProfile, recipientProfile));
 
         return message;
     }

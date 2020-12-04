@@ -46,6 +46,7 @@ public class ProjectService {
                 .build();
 
         userProfile.getProjects().add(newProject);
+        profileDb.save(userProfile);
 
         return projectDb.save(newProject);
     }
