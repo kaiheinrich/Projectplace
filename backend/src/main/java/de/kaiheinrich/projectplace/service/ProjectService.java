@@ -47,18 +47,6 @@ public class ProjectService {
 
         userProfile.getProjects().add(newProject);
 
-        Profile updatedProfile = Profile.builder()
-                .username(username)
-                .birthday(userProfile.getBirthday())
-                .location(userProfile.getLocation())
-                .skills(userProfile.getSkills())
-                .name(userProfile.getName())
-                .imageName(userProfile.getImageName())
-                .projects(userProfile.getProjects())
-                .build();
-
-        profileDb.save(updatedProfile);
-
         return projectDb.save(newProject);
     }
 

@@ -1,6 +1,8 @@
 package de.kaiheinrich.projectplace.controller;
 
+import de.kaiheinrich.projectplace.dto.MessageDto;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
+import de.kaiheinrich.projectplace.model.Message;
 import de.kaiheinrich.projectplace.model.Profile;
 import de.kaiheinrich.projectplace.service.ImageUploadAWSService;
 import de.kaiheinrich.projectplace.service.ProfileService;
@@ -47,5 +49,10 @@ public class ProfileController {
     @PostMapping("/image")
     public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
         return imageUploadAWSService.upload(file);
+    }
+
+    @PostMapping("/message/{username}")
+    public Message sendMessage(@PathVariable String username, @RequestBody MessageDto messageDto, Principal principal) {
+        return profileService.sendMessage(principal.getName(), username, messageDto);
     }
 }
