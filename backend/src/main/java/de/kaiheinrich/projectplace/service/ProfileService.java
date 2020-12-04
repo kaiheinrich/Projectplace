@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
 import de.kaiheinrich.projectplace.model.Profile;
+import de.kaiheinrich.projectplace.model.Project;
 import de.kaiheinrich.projectplace.utils.AmazonS3ClientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,6 +53,9 @@ public class ProfileService {
     }
 
     public Profile updateProfile(ProfileDto profileDto, String username) {
+
+        List<Project> userProjects = getProfileByUsername(username).get().getProjects();
+
         Profile updatedProfile = Profile.builder()
                 .username(username)
                 .birthday(profileDto.getBirthday())
@@ -59,6 +63,7 @@ public class ProfileService {
                 .skills(profileDto.getSkills())
                 .name(profileDto.getName())
                 .imageName(profileDto.getImageName())
+                .projects(userProjects)
                 .build();
 
         return profileDb.save(updatedProfile);

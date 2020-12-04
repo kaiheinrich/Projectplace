@@ -78,7 +78,7 @@ const useStyles = makeStyles({
     avatarPosition: {
         alignSelf: "start",
         justifySelf: "end"
-}
+    }
 });
 
 const DivStyled = styled.div`

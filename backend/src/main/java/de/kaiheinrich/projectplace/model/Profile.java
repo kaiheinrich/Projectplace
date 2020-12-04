@@ -25,4 +25,5 @@ public class Profile {
     private List<String> skills;
     private String imageUrl;
     private String imageName;
+    private List<Project> projects;
 }
