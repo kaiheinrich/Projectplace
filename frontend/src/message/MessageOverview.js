@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import MenuAppBar from "../navBar/NavBar";
 import styled from "styled-components/macro";
 import {Button} from "@material-ui/core";
