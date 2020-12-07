@@ -28,7 +28,7 @@ export default function Message() {
 
     useEffect(() => {
         setReplyRecipient(receivedMessage ? message?.sender : message?.recipient)
-    }, [message])
+    }, [message, receivedMessage])
 
     return(
         <>
