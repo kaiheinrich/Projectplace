@@ -7,7 +7,7 @@ import styled from "styled-components/macro";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
-import {updateProject} from "../service/ProjectService";
+import {updateProject, uploadProjectImage} from "../service/ProjectService";
 
 export default function EditProject() {
 
@@ -48,6 +48,7 @@ export default function EditProject() {
                     type="text"
                     variant="outlined"
                     InputProps={{className: classes.input}}/>
+                    <input type="file" onChange={handlePictureChange} accept="image/*"/>
                     <Button type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
             </MainStyled>
@@ -56,13 +57,20 @@ export default function EditProject() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        updateProject(id, projectData.title, projectData.description, token)
+        updateProject(id, projectData.title, projectData.description, projectData.imageName, token)
             .then(() => history.push("/project/" + projectData.id + "/edit"))
             .catch(error => console.log(error));
     }
 
     function handleChange(event) {
         setProjectData({...projectData, [event.target.name]: event.target.value});
+    }
+
+    function handlePictureChange(event) {
+        const imageFile = event.target.files[0];
+        imageFile ? uploadProjectImage(imageFile, token)
+            .then(data => setProjectData({...projectData, imageName: data}))
+            .catch(error => console.log(error)) : setProjectData({...projectData, imageName: projectData.imageName})
     }
 }
 

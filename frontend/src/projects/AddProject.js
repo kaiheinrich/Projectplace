@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
-import {addProject} from "../service/ProjectService";
+import {addProject, uploadProjectImage} from "../service/ProjectService";
 import UserContext from "../contexts/UserContext";
 import {useHistory} from "react-router-dom";
 
@@ -13,6 +13,7 @@ export default function AddProject() {
     const classes = useStyles();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [imageName, setImageName] = useState("");
     const {token} = useContext(UserContext);
     const history = useHistory();
 
@@ -39,6 +40,7 @@ export default function AddProject() {
                         type="text"
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
+                    <input type="file" onChange={handlePictureChange} accept="image/*"/>
                     <Button type="submit" variant="contained">Save project</Button>
                 </FormStyled>
             </MainStyled>
@@ -46,8 +48,15 @@ export default function AddProject() {
     );
 
     function handleSubmit() {
-        addProject(title, description, token)
+        addProject(title, description, imageName, token)
             .then(() => history.push("/project"))
+            .catch(error => console.log(error));
+    }
+
+    function handlePictureChange(event) {
+        const imageFile = event.target.files[0];
+        uploadProjectImage(imageFile, token)
+            .then(data => setImageName(data))
             .catch(error => console.log(error));
     }
 }
