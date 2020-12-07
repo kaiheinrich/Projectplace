@@ -125,7 +125,8 @@ export default function MenuAppBar(props) {
                         <SearchIcon/>
                     </IconButton>
                     <IconButton
-                        color="inherit">
+                        color="inherit"
+                        onClick={() => history.push(`/profile/${userCredentials.sub}/messages`)}>
                         <MessageIcon/>
                     </IconButton>
                     {(
