@@ -5,21 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import {updateProfile, uploadProfileImage} from "../service/ProfileService";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
-import {Avatar, Button} from "@material-ui/core";
+import {Avatar, Button, Grid, Typography} from "@material-ui/core";
 import MenuAppBar from "../navBar/NavBar";
 import Chip from "@material-ui/core/Chip";
 import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-    skill: {
-        margin: "4px",
-        backgroundColor: "#d7385e",
-        color: "white"
-    },
-    input: {
-        backgroundColor: "lightgrey"
-    }
-}));
+import Card from "@material-ui/core/Card";
+import {ImageSearchOutlined} from "@material-ui/icons";
 
 export default function EditProfile() {
 
@@ -44,10 +35,26 @@ export default function EditProfile() {
         !profileData ? null :
         <>
             <MenuAppBar pagename="Edit profile"/>
-            <MainStyled>
+            <Card className={classes.card}>
                 <FormStyled onSubmit={handleSubmit}>
-                    {profileData.imageName ? <Avatar alt="profile" src={profileData.imageUrl}/> : <Avatar/>}
-                    <input type="file" onChange={handlePictureChange} accept="image/*"/>
+                    {profileData.imageName ? <Avatar className={classes.avatar} alt="profile" src={profileData.imageUrl}/> : <Avatar className={classes.avatar}/>}
+                    <Grid container item>
+                        <input
+                            hidden
+                            id="contained-button-file"
+                            type="file"
+                            onChange={handlePictureChange}
+                            accept="image/*"
+                        />
+                        <label htmlFor="contained-button-file">
+                            <Button
+                                className={classes.button}
+                                aria-label="upload-picture"
+                                startIcon={<ImageSearchOutlined/>}
+                                component="span"
+                            >Upload picture</Button>
+                        </label>
+                    </Grid>
                     <TextField
                         name="name"
                         label="Name"
@@ -78,7 +85,7 @@ export default function EditProfile() {
                     <div>
                         <ul>
                             {profileData.skills.map((skill, index) =>
-                                <Chip className={classes.skill} label={skill} key={index} onDelete={() => handleDelete(index)}/>
+                                <Chip variant={"outlined"} className={classes.skill} label={skill} key={index} onDelete={() => handleDelete(index)}/>
                             )}
                         </ul>
                         <TextField
@@ -91,11 +98,11 @@ export default function EditProfile() {
                         type="text"
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
+                        {newSkill && <Typography>Press enter to add new skill</Typography>}
                     </div>
-                    <Button type="submit" variant="contained">Save changes</Button>
+                    <Button className={classes.button} type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
-
-            </MainStyled>
+            </Card>
         </>
     );
 
@@ -137,9 +144,27 @@ export default function EditProfile() {
     }
 }
 
-const MainStyled = styled.main`
-  padding: var(--size-l);
-`
+const useStyles = makeStyles(() => ({
+    skill: {
+        margin: "4px",
+        backgroundColor: "#F3EED9",
+    },
+    input: {
+        backgroundColor: "#ebebeb"
+    },
+    card: {
+        padding: "16px",
+        height: "min-content"
+    },
+    button: {
+        backgroundColor: "#d7385e",
+        color: "white"
+    },
+    avatar: {
+        width: "90px",
+        height: "90px"
+    }
+}));
 
 const FormStyled = styled.form`
   display: grid;

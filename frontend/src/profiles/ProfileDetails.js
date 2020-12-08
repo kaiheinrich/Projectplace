@@ -37,7 +37,7 @@ export default function ProfileDetails(){
                         <SkillList skills={profile.skills}/>
                         <Typography>Recent projects:</Typography>
                         <Typography>
-                            {profile.projects?.map(project =>
+                            {profile.projects?.slice(0).reverse().map(project =>
                             <p key={project.id}>
                                 <Button
                                     className={classes.goToButton}
@@ -47,7 +47,10 @@ export default function ProfileDetails(){
                         </Typography>
                     </CardContent>
                 </Card>
-                <Button className={classes.button} variant="contained" onClick={handleClick}>Back to profiles</Button>
+                <ButtonSectionStyled>
+                <Button className={classes.goBackButton} variant="contained" onClick={handleClick}>Back to profiles</Button>
+                <Button className={classes.button} variant="contained" onClick={() => history.push(`/messageto/${profile.username}`)}>Send message</Button>
+                </ButtonSectionStyled>
             </ProfileDetailsStyled>
         </>
     );
@@ -59,14 +62,19 @@ const useStyles = makeStyles({
         color: "white",
         borderRadius: "10px",
         fontSize: "0.8em",
-        padding: "8px",
-        position: "static"
+        padding: "8px"
     },
     goToButton: {
         backgroundColor: "#e7e7e7",
         borderRadius: "10px",
         fontSize: "0.8em",
         padding: "8px",
+    },
+    goBackButton: {
+        backgroundColor: "#e7e7e7",
+        borderRadius: "10px",
+        fontSize: "0.8em",
+        padding: "8px"
     },
     name: {
         fontSize: "1.5em"
@@ -87,10 +95,6 @@ const useStyles = makeStyles({
     avatar: {
         width: "130px",
         height: "130px"
-    },
-    avatarPosition: {
-        alignItems: "end",
-        justifyItems: "center"
     }
 });
 
@@ -98,4 +102,10 @@ const ProfileDetailsStyled = styled.section`
   display: grid;
   grid-template-rows: 1fr min-content;
   padding: var(--size-m);
+`
+
+const ButtonSectionStyled = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 `
