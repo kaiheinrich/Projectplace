@@ -6,20 +6,6 @@ import {Button, TextField, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 
-const useStyles = makeStyles(() => ({
-    input: {
-        backgroundColor: "lightgrey"
-    },
-    link: {
-        backgroundColor: "white",
-        padding: "8px",
-        color: "black"
-    },
-    card: {
-        height: "min-content"
-    }
-}));
-
 const initialCredentials = {
     username: "",
     password: ""
@@ -71,6 +57,20 @@ export default function LoginPage() {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
 }
+
+const useStyles = makeStyles(() => ({
+    input: {
+        backgroundColor: "lightgrey"
+    },
+    link: {
+        backgroundColor: "white",
+        padding: "8px",
+        color: "black"
+    },
+    card: {
+        height: "min-content"
+    }
+}));
 
 const Form = styled.form`
   padding: var(--size-l);

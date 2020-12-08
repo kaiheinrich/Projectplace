@@ -154,7 +154,8 @@ const useStyles = makeStyles(() => ({
     },
     card: {
         padding: "16px",
-        height: "min-content"
+        height: "100vh",
+        overflow: "scroll"
     },
     button: {
         backgroundColor: "#d7385e",
