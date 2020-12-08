@@ -5,10 +5,8 @@ import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Card from "@material-ui/core/Card";
-import Box from "@material-ui/core/Box";
-import {Button, Typography} from "@material-ui/core";
+import {Button, CardContent, CardHeader, Typography} from "@material-ui/core";
 import UserContext from "../contexts/UserContext";
-import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 export default function ProjectDetails() {
 
@@ -29,22 +27,35 @@ export default function ProjectDetails() {
         <>
             <MenuAppBar pagename="Project details"/>
             <ProjectDetailsStyled>
-                <Card className={classes.card}>
-                    <Typography variant="h4">{project.title}</Typography>
-                    <p>created by: {project.projectOwner}</p>
-                    {buttonEnabled ? <Button onClick={handleClick}>Edit project</Button> : null}
-                    <hr/>
-                    <p>Description:</p>
-                    <Box component="div">{project.description}</Box>
-                    <p>Impressions:</p>
+                <Card className={classes.card} variant="elevation">
+                    <CardHeader
+                        className={classes.cardHeader}
+                        title={project.title}
+                        subheader={<div>by {project.projectOwner}</div>}
+                        action={buttonEnabled ? <Button className={classes.editButton} onClick={handleClick}>Edit</Button> : null}/>
+                    <CardContent className={classes.cardContent}>
+                        <Typography>Description:</Typography>
+                        <Typography>{project.description}</Typography>
+                    </CardContent>
+                    <CardContent className={classes.cardContent}>
+                        <img width="100%" alt="project impression" src={project.imageUrl}/>
+                    </CardContent>
+
                 </Card>
+                <ButtonSectionStyled>
+                    <Button className={classes.goBackButton} variant="contained" onClick={handleGoBack}>Back to projects</Button>
+                    <Button className={classes.button} variant="contained" onClick={() => history.push(`/messageto/${project.projectOwner}`)}>Take part</Button>
+                </ButtonSectionStyled>
             </ProjectDetailsStyled>
-            <AddProjectButton/>
         </>
     );
 
     function handleClick() {
         history.push("/project/" + project.id + "/edit");
+    }
+
+    function handleGoBack() {
+        history.goBack();
     }
 }
 
@@ -54,8 +65,21 @@ const ProjectDetailsStyled = styled.section`
   grid-template-rows: 1fr min-content;
   padding: var(--size-m);
 `
+const ButtonSectionStyled = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+`
 
 const useStyles = makeStyles({
+    cardHeader: {
+        justifySelf: "center",
+        padding: "12px",
+        backgroundColor: "#F3EED9"
+    },
+    cardContent: {
+        padding: "12px"
+    },
     button: {
         backgroundColor: "#ec5864",
         color: "white",
@@ -63,10 +87,23 @@ const useStyles = makeStyles({
         fontSize: "0.8em",
         padding: "8px"
     },
-
+    editButton: {
+        backgroundColor: "#ec5864",
+        color: "white",
+        borderRadius: "10px",
+        fontSize: "0.8em",
+        padding: "8px",
+        margin: "8px"
+    },
+    goBackButton: {
+        backgroundColor: "#e7e7e7",
+        borderRadius: "10px",
+        fontSize: "0.8em",
+        padding: "8px"
+    },
     card: {
         height: "82vh",
-        padding: "8px",
-        backgroundColor: "#FFF4F4"
+        backgroundColor: "#FFFFFF",
+        overflow: "scroll"
     }
 });
