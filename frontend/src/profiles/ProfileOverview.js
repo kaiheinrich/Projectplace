@@ -20,6 +20,7 @@ export default function ProfileOverview() {
             <InputBase
                 className={classes.searchField}
                 type="text"
+                placeholder="Search for skills..."
                 value={searchTerm}
                 onChange={event => setSearchTerm(event.target.value)}/>
             </div>
@@ -52,6 +53,7 @@ const ListStyled = styled.ul`
 const useStyles = makeStyles((theme) => ({
     searchField: {
         display: "block",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        padding: "2px 4px"
     }
 }));
