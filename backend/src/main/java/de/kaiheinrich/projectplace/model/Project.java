@@ -19,4 +19,6 @@ public class Project {
     private String projectOwner;
     private String title;
     private String description;
+    private String imageUrl;
+    private String imageName;
 }

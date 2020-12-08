@@ -24,11 +24,9 @@ export default function ProjectOverviewItem({project}) {
                 <Typography variant="body2" component="p">
                     {project.description}
                 </Typography>
-                <hr/>
             </CardContent>
             <CardContent>
-            <img width="100%" alt="project" src="./images/man-repairing-bike-confident-young-600w-499233697.webp"/>
-                <hr/>
+                {project.imageUrl && <img width="100%" alt="project" src={project.imageUrl}/>}
             </CardContent>
             <CardActions className={classes.buttonPosition}>
                 <Button className={classes.button} size="small" onClick={() => history.push(`/project/${project.id}`)}>Check out project</Button>
