@@ -26,4 +26,6 @@ public class Profile {
     private String imageUrl;
     private String imageName;
     private List<Project> projects;
+    private List<Message> receivedMessages;
+    private List<Message> sentMessages;
 }

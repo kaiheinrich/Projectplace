@@ -4,10 +4,14 @@ import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
+import de.kaiheinrich.projectplace.dto.MessageDto;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
+import de.kaiheinrich.projectplace.model.Message;
 import de.kaiheinrich.projectplace.model.Profile;
 import de.kaiheinrich.projectplace.model.Project;
 import de.kaiheinrich.projectplace.utils.AmazonS3ClientUtils;
+import de.kaiheinrich.projectplace.utils.IdUtils;
+import de.kaiheinrich.projectplace.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,11 +28,15 @@ public class ProfileService {
 
     private final ProfileMongoDb profileDb;
     private final AmazonS3ClientUtils s3ClientUtils;
+    private final IdUtils idUtils;
+    private final TimestampUtils timestampUtils;
 
     @Autowired
-    public ProfileService(ProfileMongoDb profileDb, AmazonS3ClientUtils s3ClientUtils) {
+    public ProfileService(ProfileMongoDb profileDb, AmazonS3ClientUtils s3ClientUtils, IdUtils idUtils, TimestampUtils timestampUtils) {
         this.profileDb = profileDb;
         this.s3ClientUtils = s3ClientUtils;
+        this.idUtils = idUtils;
+        this.timestampUtils = timestampUtils;
     }
 
     public List<Profile> getProfiles() {
@@ -55,6 +63,8 @@ public class ProfileService {
     public Profile updateProfile(ProfileDto profileDto, String username) {
 
         List<Project> userProjects = getProfileByUsername(username).get().getProjects();
+        List<Message> receivedMessages = getProfileByUsername(username).get().getReceivedMessages();
+        List<Message> sentMessages = getProfileByUsername(username).get().getSentMessages();
 
         Profile updatedProfile = Profile.builder()
                 .username(username)
@@ -64,9 +74,32 @@ public class ProfileService {
                 .name(profileDto.getName())
                 .imageName(profileDto.getImageName())
                 .projects(userProjects)
+                .receivedMessages(receivedMessages)
+                .sentMessages(sentMessages)
                 .build();
 
         return profileDb.save(updatedProfile);
+    }
+
+    public Message sendMessage(String sender, String recipient, MessageDto messageDto) {
+
+        Profile senderProfile = getProfileByUsername(sender).get();
+        Profile recipientProfile = getProfileByUsername(recipient).get();
+
+        Message message = Message.builder()
+                .id(idUtils.generateId())
+                .timestamp(timestampUtils.generateTimestampEpochSeconds())
+                .subject(messageDto.getSubject())
+                .message(messageDto.getMessage())
+                .sender(sender)
+                .recipient(recipient)
+                .build();
+
+        senderProfile.getSentMessages().add(message);
+        recipientProfile.getReceivedMessages().add(message);
+        profileDb.saveAll(List.of(senderProfile, recipientProfile));
+
+        return message;
     }
 
     private Date getExpirationTime() {

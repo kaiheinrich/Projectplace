@@ -20,3 +20,7 @@ export const uploadProfileImage = (file, token) => {
     return axios.post('/api/profiles/image', formData, header(token, {'Content-Type': 'multipart/form-data'}))
         .then(response => response.data);
 }
+
+export const sendMessage = (subject, message, sender, recipient, token) =>
+    axios.post("/api/profiles/message/" + recipient, {subject, message, sender, recipient}, header(token))
+        .then(response => response.data);

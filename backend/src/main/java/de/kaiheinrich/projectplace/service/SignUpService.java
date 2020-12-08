@@ -43,6 +43,8 @@ public class SignUpService {
                 List.of(),
                 "",
                 "",
+                List.of(),
+                List.of(),
                 List.of()));
 
         return Optional.of(userDb.save(newUser).getUsername());
