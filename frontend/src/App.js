@@ -29,7 +29,6 @@ function App() {
                     <Switch>
                         <Route path="/login" component={LoginPage}/>
                         <Route path="/signup" component={SignUpPage}/>
-                        <ProtectedRoute path="/home" component={Home}/>
                         <ProtectedRoute exact path="/messageto/:username" component={SendMessage}/>
                         <ProtectedRoute exact path="/message/:id" component={Message}/>
                         <ProtectedRoute exact path="/profile" component={ProfileOverview}/>
@@ -40,6 +39,7 @@ function App() {
                         <ProtectedRoute exact path="/project/add" component={AddProject}/>
                         <ProtectedRoute exact path="/project/:id" component={ProjectDetails}/>
                         <ProtectedRoute exact path="/project/:id/edit" component={EditProject}/>
+                        <ProtectedRoute path={["/", "/home"]} component={Home}/>
                     </Switch>
                   </AppStyled>
               </ProjectContextProvider>
