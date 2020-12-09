@@ -4,16 +4,7 @@ import UserContext from "../contexts/UserContext";
 import {Link, useHistory} from "react-router-dom";
 import {Button, TextField, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-    input: {
-        backgroundColor: "lightgrey"
-    },
-    link: {
-        backgroundColor: "white",
-        padding: "8px"
-    }
-}));
+import Card from "@material-ui/core/Card";
 
 const initialCredentials = {
     username: "",
@@ -30,8 +21,8 @@ export default function LoginPage() {
 
     return(
         <>
-            <HeaderStyled title="Login">Welcome!</HeaderStyled>
-            <main>
+            <HeaderStyled title="Login">Welcome to Projectplace!</HeaderStyled>
+            <Card className={classes.card} elevation={"10"} raised={true}>
                 <Form autoComplete="off" onSubmit={handleSubmit}>
                     <TextField
                         name="username"
@@ -51,9 +42,9 @@ export default function LoginPage() {
                         InputProps={{className: classes.input}}/>
                     <Button type="submit">Login</Button>
                 {error && <div>{error}</div>}
-                <Link to="/signup"><Typography className={classes.link}>You want to be part of the community? Sign up here!</Typography></Link>
+                <Typography className={classes.link}>Not part of the community?<Link to="/signup" className={classes.link}>Sign up here!</Link></Typography>
                 </Form>
-            </main>
+            </Card>
         </>
     );
 
@@ -66,6 +57,20 @@ export default function LoginPage() {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
 }
+
+const useStyles = makeStyles(() => ({
+    input: {
+        backgroundColor: "lightgrey"
+    },
+    link: {
+        backgroundColor: "white",
+        padding: "8px",
+        color: "black"
+    },
+    card: {
+        height: "min-content"
+    }
+}));
 
 const Form = styled.form`
   padding: var(--size-l);

@@ -7,7 +7,8 @@ import {Typography} from "@material-ui/core";
 const useStyles = makeStyles(() => ({
     skill: {
         margin: "4px",
-        backgroundColor: "#dee7e7"
+        backgroundColor: "#F3EED9",
+
     }
 }));
 

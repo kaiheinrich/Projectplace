@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {CardHeader} from "@material-ui/core";
 
 export default function ProjectOverviewItem({project}) {
 
@@ -13,14 +14,12 @@ export default function ProjectOverviewItem({project}) {
     const history = useHistory();
 
     return (
-        <Card className={classes.root} variant="elevation">
-            <CardContent>
-                <Typography variant="h5" component="h2">
-                    {project.title}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    by {project.projectOwner}
-                </Typography>
+        <Card className={classes.root} variant="elevation" elevation={20}>
+            <CardHeader
+                className={classes.cardHeader}
+                title={project.title}
+                subheader={<Typography>by {project.projectOwner}</Typography>}/>
+            <CardContent className={classes.description}>
                 <Typography variant="body2" component="p">
                     {project.description}
                 </Typography>
@@ -38,18 +37,25 @@ export default function ProjectOverviewItem({project}) {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-        backgroundColor: "#FFF4F4",
-        borderRadius: "20px"
+        backgroundColor: "#FFFFFF",
+        borderRadius: "5px"
+    },
+    cardHeader: {
+        backgroundColor: "#F3EED9"
     },
     button: {
-        backgroundColor: "#9F0D2F",
-        color: "white",
+        backgroundColor: "#e7e7e7",
+        color: "black",
+        width: "max-content",
         borderRadius: "10px",
         fontSize: "0.9em",
         padding: "8px"
     },
     name: {
         fontSize: 20
+    },
+    description: {
+        paddingBottom: "0"
     },
     bullet: {
         display: 'inline-block',
@@ -63,6 +69,8 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
     buttonPosition: {
-        justifyContent: "center"
+        justifyContent: "center",
+        alignContent: "center",
+        padding: "0px 16px 16px 16px"
     }
 });
