@@ -10,23 +10,21 @@ const images = [
     {
         url: './images/team.jpg',
         title: 'Team members',
-        height: '50%',
+        height: '100%',
         linkto: '/profile'
     },
     {
         url: './images/project.jpg',
         title: 'Project ideas',
-        height: '50%',
+        height: '100%',
         linkto: '/project'
     }
 ];
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        minWidth: 300,
-        width: '100%',
+        display: 'grid',
+        gridTemplateRows: "1fr 1fr"
     },
     image: {
         position: 'relative',

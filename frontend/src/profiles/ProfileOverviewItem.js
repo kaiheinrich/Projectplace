@@ -34,7 +34,6 @@ export default function ProfileOverviewItem({profile}) {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-        maxWidth: 300,
         backgroundColor: "#FFFFFF",
         borderRadius: "5px"
     },
