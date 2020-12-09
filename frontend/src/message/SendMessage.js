@@ -4,9 +4,10 @@ import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import {Button} from "@material-ui/core";
 import {sendMessage} from "../service/ProfileService";
 import MenuAppBar from "../navBar/NavBar";
+import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
 
 export default function SendMessage() {
 
@@ -20,7 +21,7 @@ export default function SendMessage() {
     return(
         <>
             <MenuAppBar pagename={"Message to " + username}/>
-            <MainStyled>
+            <Card className={classes.card} elevation={"10"} raised={true}>
                 <FormStyled onSubmit={handleSubmit}>
                     <TextField
                         name="subject"
@@ -36,13 +37,14 @@ export default function SendMessage() {
                         label="Message"
                         autoComplete="off"
                         value={message}
+                        multiline={true}
                         onChange={event => setMessage(event.target.value)}
                         type="text"
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
                     <Button type="submit" variant="contained">Send</Button>
                 </FormStyled>
-            </MainStyled>
+            </Card>
         </>
     );
 
@@ -53,17 +55,26 @@ export default function SendMessage() {
     }
 }
 
-const MainStyled = styled.main`
-  padding: var(--size-l);
-`
-
 const FormStyled = styled.form`
   display: grid;
-  gap: var(--size-l)
+  gap: var(--size-l);
+  
+  button {
+    padding: var(--size-m);
+    border: none;
+    background: var(--red-dark);
+    color: white;
+    border-radius: var(--size-s);
+    font-size: 1em;
+  }
 `
 
 const useStyles = makeStyles(() => ({
     input: {
         backgroundColor: "lightgrey"
+    },
+    card: {
+        height: "min-content",
+        padding: "12px"
     }
 }));
