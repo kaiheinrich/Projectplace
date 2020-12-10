@@ -20,6 +20,7 @@ export default function EditProfile() {
     const {profiles} = useContext(ProfileContext);
     const [profileData, setProfileData] = useState(null);
     const [newSkill, setNewSkill] = useState("");
+    const [file, setFile] = useState();
 
     useEffect(() => {
         const profile = profiles?.find(profile => profile.username === username);
@@ -37,7 +38,7 @@ export default function EditProfile() {
             <MenuAppBar pagename="Edit profile" searchIsActive={false}/>
             <Card className={classes.card}>
                 <FormStyled onSubmit={handleSubmit}>
-                    {profileData.imageName ? <Avatar className={classes.avatar} alt="profile" src={profileData.imageUrl}/> : <Avatar className={classes.avatar}/>}
+                    {file ? <Avatar className={classes.avatar} alt="profile" src={file}/> : <Avatar className={classes.avatar} alt="profile" src={profileData.imageUrl}/> }
                     <Grid container item>
                         <input
                             hidden
@@ -122,6 +123,7 @@ export default function EditProfile() {
 
     function handlePictureChange(event) {
         const imageFile = event.target.files[0];
+        setFile(URL.createObjectURL(imageFile));
         imageFile ? uploadProfileImage(imageFile, token)
             .then(data => setProfileData({...profileData, imageName: data}))
             .catch(error => console.log(error)) : setProfileData({...profileData, imageName: profileData.imageName})
