@@ -29,7 +29,7 @@ export default function EditProject() {
     return(
         !projectData ? null :
         <>
-            <MenuAppBar pagename="Edit project"/>
+            <MenuAppBar pagename="Edit project" searchIsActive={false}/>
             <Card className={classes.card}>
                 <FormStyled onSubmit={handleSubmit}>
                     <TextField

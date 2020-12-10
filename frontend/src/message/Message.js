@@ -2,10 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import MenuAppBar from "../navBar/NavBar";
 import Card from "@material-ui/core/Card";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {Button, Typography} from "@material-ui/core";
+import {Button, CardContent, CardHeader, Typography} from "@material-ui/core";
 import {useHistory, useParams} from "react-router-dom";
 import ProfileContext from "../contexts/ProfileContext";
-import Box from "@material-ui/core/Box";
 import UserContext from "../contexts/UserContext";
 
 export default function Message() {
@@ -32,12 +31,18 @@ export default function Message() {
 
     return(
         <>
-        <MenuAppBar pagename="Message"/>
+        <MenuAppBar pagename="Message" searchIsActive={false}/>
         <Card className={classes.card}>
-            <Typography>from {message?.sender} to {message?.recipient}</Typography>
-            <Typography>{message?.subject}</Typography>
-            <Box>{message?.message}</Box>
-            <Button onClick={() => history.push(`/messageto/${replyRecipient}`)}>Reply</Button>
+            <CardHeader
+                className={classes.cardHeader}
+                title={`Message: ${message?.subject}`}
+                subheader={`from ${message?.sender} to ${message?.recipient}`}/>
+            <CardContent className={classes.cardContent}>
+                <Typography>{message?.message}</Typography>
+            </CardContent>
+            <CardContent className={classes.buttonPosition}>
+            <Button className={classes.button} variant="contained" onClick={() => history.push(`/messageto/${replyRecipient}`)}>Reply</Button>
+            </CardContent>
         </Card>
         </>
     );
@@ -45,9 +50,27 @@ export default function Message() {
 
 const useStyles = makeStyles({
     card: {
-        height: "83vh",
-        margin: "12px",
+        height: "100%",
+        backgroundColor: "#FFFFFF",
+        overflow: "scroll"
+    },
+    cardHeader: {
         padding: "12px",
-        backgroundColor: "#FFF4F4"
+        backgroundColor: "#F3EED9"
+    },
+    cardContent: {
+        padding: "12px"
+    },
+    button: {
+        backgroundColor: "#ec5864",
+        color: "white",
+        borderRadius: "10px",
+        fontSize: "0.8em",
+        padding: "8px",
+        minWidth: "80px"
+    },
+    buttonPosition: {
+        display: "grid",
+        alignItems: "center"
     }
 });

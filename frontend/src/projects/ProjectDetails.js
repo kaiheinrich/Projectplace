@@ -25,7 +25,7 @@ export default function ProjectDetails() {
     return(
         !project ? null :
         <>
-            <MenuAppBar pagename="Project details"/>
+            <MenuAppBar pagename="Project details" searchIsActive={false}/>
             <ProjectDetailsStyled>
                 <Card className={classes.card} variant="elevation">
                     <CardHeader

@@ -11,7 +11,7 @@ export default function ProjectOverview() {
 
     return(
         <>
-            <MenuAppBar pagename="Projects"/>
+            <MenuAppBar pagename="Projects" searchIsActive={false}/>
             <ListStyled>
                 {projects?.map(project =>
                     <li key={project.id}>

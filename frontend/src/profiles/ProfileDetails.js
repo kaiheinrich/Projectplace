@@ -22,7 +22,7 @@ export default function ProfileDetails(){
     return (
         !profile ? null :
         <>
-            <MenuAppBar pagename="Profile details"/>
+            <MenuAppBar pagename="Profile details" searchIsActive={false}/>
             <ProfileDetailsStyled>
                 <Card className={classes.card} variant="elevation">
                     <CardHeader
@@ -31,7 +31,7 @@ export default function ProfileDetails(){
                         title={<Typography className={classes.name}>{profile.name}</Typography>}
                         subheader={<div><address>Located in: {profile.location}</address>
                             <time>Birthday: {profile.birthday}</time></div>}
-                        avatar={profile.imageUrl ? <Avatar className={classes.avatar} src={profile.imageUrl}/> : <Avatar className={classes.avatar}/>}
+                        avatar={<Avatar className={classes.avatar} src={profile.imageUrl}/>}
                         />
                     <CardContent className={classes.cardContent}>
                         <SkillList skills={profile.skills}/>
