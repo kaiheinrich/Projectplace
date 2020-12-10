@@ -9,10 +9,13 @@ import de.kaiheinrich.projectplace.dto.ProjectDto;
 import de.kaiheinrich.projectplace.model.Profile;
 import de.kaiheinrich.projectplace.model.Project;
 import de.kaiheinrich.projectplace.utils.AmazonS3ClientUtils;
+import de.kaiheinrich.projectplace.utils.DateExpirationUtils;
 import de.kaiheinrich.projectplace.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -28,19 +31,25 @@ public class ProjectService {
     private final IdUtils idUtils;
     private final ProfileMongoDb profileDb;
     private final AmazonS3ClientUtils s3ClientUtils;
+    private final DateExpirationUtils expirationUtils;
 
     @Autowired
-    public ProjectService(ProjectMongoDb projectDb, IdUtils idUtils, ProfileMongoDb profileDb, AmazonS3ClientUtils s3ClientUtils) {
+    public ProjectService(ProjectMongoDb projectDb,
+                          IdUtils idUtils,
+                          ProfileMongoDb profileDb,
+                          AmazonS3ClientUtils s3ClientUtils,
+                          DateExpirationUtils expirationUtils) {
         this.projectDb = projectDb;
         this.idUtils = idUtils;
         this.profileDb = profileDb;
         this.s3ClientUtils = s3ClientUtils;
+        this.expirationUtils = expirationUtils;
     }
 
     public List<Project> getProjects() {
 
         List<Project> projectList = projectDb.findAll();
-        Date expiration = getExpirationTime();
+        Date expiration = expirationUtils.getExpirationTime();
         AmazonS3 s3Client = s3ClientUtils.getS3Client();
 
         for(Project project : projectList) {
@@ -52,7 +61,6 @@ public class ProjectService {
                 project.setImageUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
             }
         }
-
         return projectList;
     }
 
@@ -62,7 +70,7 @@ public class ProjectService {
 
     public Project addProject(ProjectDto projectDto, String username) {
 
-        Profile userProfile = profileDb.findById(username).get();
+        Profile userProfile = profileDb.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         Project newProject = Project.builder()
                 .id(idUtils.generateId())
@@ -95,13 +103,5 @@ public class ProjectService {
 
     public void deleteProject(String id) {
         projectDb.deleteById(id);
-    }
-
-    private Date getExpirationTime() {
-        Date expiration = new Date();
-        long expTimeMillis = expiration.getTime();
-        expTimeMillis += 1000 * 60 * 60;
-        expiration.setTime(expTimeMillis);
-        return expiration;
     }
 }
