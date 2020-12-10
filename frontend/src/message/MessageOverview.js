@@ -11,7 +11,7 @@ export default function MessageOverview() {
 
     return(
         <>
-            <MenuAppBar pagename="Messages"/>
+            <MenuAppBar pagename="Messages" searchIsActive={false}/>
             <div>
                 <ButtonSectionStyled>
                     <Button onClick={() => setReceivedMessages(true)}>Received</Button>

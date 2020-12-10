@@ -12,6 +12,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import UserContext from "../contexts/UserContext";
+import InputBase from "@material-ui/core/InputBase";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    searchField: {
+        display: "block",
+        backgroundColor: "white",
+        padding: "2px 4px"
+    }
 }));
 
 export default function MenuAppBar(props) {
@@ -35,6 +41,7 @@ export default function MenuAppBar(props) {
     const openProfileMenu = Boolean(anchorEl);
     const [mainAnchorEl, setMainAnchorEl] = useState(null);
     const openMainMenu = Boolean(mainAnchorEl);
+    const [headerAction, setHeaderAction] = useState("");
     const history = useHistory();
     const {userCredentials, logout} = useContext(UserContext);
 
@@ -80,6 +87,10 @@ export default function MenuAppBar(props) {
         setAnchorEl(null);
     }
 
+    const handleSearchBar = () => {
+        headerAction ? setHeaderAction("") : setHeaderAction("search");
+    }
+
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar} position="fixed">
@@ -120,10 +131,11 @@ export default function MenuAppBar(props) {
                     <Typography variant="h6" className={classes.title}>
                         {props.pagename}
                     </Typography>
-                    <IconButton
-                        color="inherit">
+                    {props.searchIsActive === true && <IconButton
+                        color="inherit"
+                        onClick={handleSearchBar}>
                         <SearchIcon/>
-                    </IconButton>
+                    </IconButton>}
                     <IconButton
                         color="inherit"
                         onClick={() => history.push(`/profile/${userCredentials.sub}/messages`)}>
@@ -163,6 +175,12 @@ export default function MenuAppBar(props) {
                 </Toolbar>
             </AppBar>
             <Toolbar/>
+            {headerAction === "search" && <InputBase
+                className={classes.searchField}
+                type="text"
+                placeholder="Search for skills..."
+                value={props.searchTerm}
+                onChange={event => props.setSearchTerm(event.target.value)}/>}
         </div>
     );
 }

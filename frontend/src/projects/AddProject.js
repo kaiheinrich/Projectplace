@@ -19,7 +19,7 @@ export default function AddProject() {
 
     return(
         <>
-            <MenuAppBar pagename="New project"/>
+            <MenuAppBar pagename="New project" searchIsActive={false}/>
             <MainStyled>
                 <FormStyled onSubmit={handleSubmit}>
                     <TextField

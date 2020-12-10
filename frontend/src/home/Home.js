@@ -99,7 +99,7 @@ export default function Home() {
 
     return (
         <>
-            <MenuAppBar pagename="Home"/>
+            <MenuAppBar pagename="Home" searchIsActive={false}/>
             <div className={classes.root}>
                 {images.map((image) => (
                     <ButtonBase

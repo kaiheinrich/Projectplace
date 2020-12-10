@@ -23,7 +23,7 @@ export default function ReceivedMessages() {
                     titleTypographyProps={{align:"center"}}/>
                 <CardContent className={classes.messages}>
                     <MessageList>
-                        {profile.receivedMessages?.slice(0).reverse().map(message =>
+                        {profile?.receivedMessages?.slice(0).reverse().map(message =>
                             <Link to={`/message/${message.id}`}><Typography align="left">From: {message.sender}, Subject: {message.subject}, Time: {message.timestamp}</Typography></Link>)}
                     </MessageList>
                 </CardContent>

@@ -34,7 +34,7 @@ export default function EditProfile() {
     return(
         !profileData ? null :
         <>
-            <MenuAppBar pagename="Edit profile"/>
+            <MenuAppBar pagename="Edit profile" searchIsActive={false}/>
             <Card className={classes.card}>
                 <FormStyled onSubmit={handleSubmit}>
                     {profileData.imageName ? <Avatar className={classes.avatar} alt="profile" src={profileData.imageUrl}/> : <Avatar className={classes.avatar}/>}

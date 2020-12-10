@@ -22,7 +22,7 @@ export default function ProfileDetails(){
     return (
         !profile ? null :
         <>
-            <MenuAppBar pagename="Profile details"/>
+            <MenuAppBar pagename="Profile details" searchIsActive={false}/>
             <ProfileDetailsStyled>
                 <Card className={classes.card} variant="elevation">
                     <CardHeader

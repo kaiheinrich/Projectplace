@@ -20,7 +20,7 @@ export default function SendMessage() {
 
     return(
         <>
-            <MenuAppBar pagename={"Message to " + username}/>
+            <MenuAppBar pagename={"Message to " + username} searchIsActive={false}/>
             <Card className={classes.card} elevation={"10"} raised={true}>
                 <FormStyled onSubmit={handleSubmit}>
                     <TextField
@@ -51,7 +51,7 @@ export default function SendMessage() {
     function handleSubmit(event) {
         event.preventDefault();
         sendMessage(subject, message, userCredentials.sub, username, token)
-            .then(() => history.push("/"));
+            .then(() => history.push(`/profile/${username}/messages`));
     }
 }
 

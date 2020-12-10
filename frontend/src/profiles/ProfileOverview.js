@@ -4,25 +4,17 @@ import ProfileOverviewItem from "./ProfileOverviewItem";
 import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
 import AddProjectButton from "../addProjectButton/AddProjectButton";
-import InputBase from "@material-ui/core/InputBase";
-import {makeStyles} from "@material-ui/core/styles";
 
 export default function ProfileOverview() {
 
-    const classes = useStyles();
     const {profiles} = useContext(ProfileContext);
     const [searchTerm, setSearchTerm] = useState("");
 
     return(
         <>
             <div>
-            <MenuAppBar pagename="Profiles"/>
-            <InputBase
-                className={classes.searchField}
-                type="text"
-                placeholder="Search for skills..."
-                value={searchTerm}
-                onChange={event => setSearchTerm(event.target.value)}/>
+            <MenuAppBar pagename="Profiles" searchIsActive={true} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+
             </div>
             <ListStyled>
                 {searchTerm ? profiles?.filter(profile =>
@@ -49,11 +41,3 @@ const ListStyled = styled.ul`
   gap: var(--size-l);
   padding: 0;
 `;
-
-const useStyles = makeStyles((theme) => ({
-    searchField: {
-        display: "block",
-        backgroundColor: "white",
-        padding: "2px 4px"
-    }
-}));

@@ -31,11 +31,11 @@ export default function Message() {
 
     return(
         <>
-        <MenuAppBar pagename="Message"/>
+        <MenuAppBar pagename="Message" searchIsActive={false}/>
         <Card className={classes.card}>
             <CardHeader
                 className={classes.cardHeader}
-                title={`Message: ${message.subject}`}
+                title={`Message: ${message?.subject}`}
                 subheader={`from ${message?.sender} to ${message?.recipient}`}/>
             <CardContent className={classes.cardContent}>
                 <Typography>{message?.message}</Typography>
