@@ -17,6 +17,7 @@ export default function EditProject() {
     const {id} = useParams();
     const {projects} = useContext(ProjectContext);
     const [projectData, setProjectData] = useState(null);
+    const [file, setFile] = useState();
 
     useEffect(() => {
         const project = projects?.find(project => project.id === id);
@@ -51,7 +52,7 @@ export default function EditProject() {
                     type="text"
                     variant="outlined"
                     InputProps={{className: classes.input}}/>
-                    {projectData.imageUrl && <img width="100%" alt="project" src={projectData.imageUrl}/>}
+                    {file ? <img width="100%" alt="project" src={file}/> : <img width="100%" alt="project" src={projectData.imageUrl}/>}
                     <Grid>
                         <input
                             hidden
@@ -87,6 +88,7 @@ export default function EditProject() {
 
     function handlePictureChange(event) {
         const imageFile = event.target.files[0];
+        setFile(URL.createObjectURL(imageFile));
         imageFile ? uploadProjectImage(imageFile, token)
             .then(data => setProjectData({...projectData, imageName: data}))
             .catch(error => console.log(error)) : setProjectData({...projectData, imageName: projectData.imageName})
