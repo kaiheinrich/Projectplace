@@ -14,7 +14,6 @@ import de.kaiheinrich.projectplace.utils.DateExpirationUtils;
 import de.kaiheinrich.projectplace.utils.IdUtils;
 import de.kaiheinrich.projectplace.utils.TimestampUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,10 +25,8 @@ import java.util.Optional;
 @Service
 public class ProfileService {
 
-    @Value("${aws.bucket.name}")
-    private String bucketName;
-
     private final ProfileMongoDb profileDb;
+    private final AmazonS3 s3Client;
     private final AmazonS3ClientUtils s3ClientUtils;
     private final IdUtils idUtils;
     private final TimestampUtils timestampUtils;
@@ -37,11 +34,13 @@ public class ProfileService {
 
     @Autowired
     public ProfileService(ProfileMongoDb profileDb,
+                          AmazonS3 s3Client,
                           AmazonS3ClientUtils s3ClientUtils,
                           IdUtils idUtils,
                           TimestampUtils timestampUtils,
                           DateExpirationUtils expirationUtils) {
         this.profileDb = profileDb;
+        this.s3Client = s3Client;
         this.s3ClientUtils = s3ClientUtils;
         this.idUtils = idUtils;
         this.timestampUtils = timestampUtils;
@@ -51,15 +50,15 @@ public class ProfileService {
     public List<Profile> getProfiles() {
         List<Profile> profileList = profileDb.findAll();
         Date expiration = expirationUtils.getExpirationTime();
-        AmazonS3 s3Client = s3ClientUtils.getS3Client();
 
         for(Profile profile : profileList) {
             if(!profile.getImageName().equals("")){
-                GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                        new GeneratePresignedUrlRequest(bucketName, profile.getImageName())
-                                .withMethod(HttpMethod.GET)
-                                .withExpiration(expiration);
-                profile.setImageUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
+                profile.setImageUrl(s3Client.generatePresignedUrl(
+                        s3ClientUtils.getBucketName(),
+                        profile.getImageName(),
+                        expiration,
+                        HttpMethod.GET)
+                        .toString());
             }
         }
         return profileList;
