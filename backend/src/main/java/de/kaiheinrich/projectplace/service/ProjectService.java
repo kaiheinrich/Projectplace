@@ -71,6 +71,7 @@ public class ProjectService {
                 .description(projectDto.getDescription())
                 .imageName(projectDto.getImageName())
                 .imageUrl("")
+                .teaser(projectDto.getTeaser())
                 .build();
 
         userProfile.getProjects().add(newProject);
@@ -86,6 +87,7 @@ public class ProjectService {
                 .title(projectDto.getTitle())
                 .description(projectDto.getDescription())
                 .imageName(projectDto.getImageName())
+                .teaser(projectDto.getTeaser())
                 .build();
         return projectDb.save(updatedProject);
     }

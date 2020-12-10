@@ -10,12 +10,12 @@ const header = (token, options = {}) =>({
 export const getProjects = (token) =>
     axios.get("/api/projects", header(token)).then(response => response.data);
 
-export const addProject = (title, description, imageName, token) =>
-    axios.post("/api/projects", {title, description, imageName}, header(token))
+export const addProject = (title, description, imageName, teaser, token) =>
+    axios.post("/api/projects", {title, description, imageName, teaser}, header(token))
         .then(response => response.data);
 
-export const updateProject = (id, title, description, imageName, token) =>
-    axios.put("/api/projects/" + id, {title, description, imageName}, header(token))
+export const updateProject = (id, title, description, imageName, teaser, token) =>
+    axios.put("/api/projects/" + id, {title, description, imageName, teaser}, header(token))
         .then(response => response.data);
 
 export const uploadProjectImage = (file, token) => {
