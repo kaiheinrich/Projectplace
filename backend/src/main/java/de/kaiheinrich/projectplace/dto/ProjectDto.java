@@ -14,4 +14,5 @@ public class ProjectDto {
     private String title;
     private String description;
     private String imageName;
+    private String teaser;
 }

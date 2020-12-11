@@ -21,4 +21,5 @@ public class Project {
     private String description;
     private String imageUrl;
     private String imageName;
+    private String teaser;
 }

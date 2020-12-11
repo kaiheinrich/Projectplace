@@ -43,6 +43,15 @@ export default function EditProject() {
                     variant="outlined"
                     InputProps={{className: classes.input}}/>
                     <TextField
+                        name="teaser"
+                        label="Teaser (50 characters max)"
+                        autoComplete="off"
+                        value={projectData.teaser}
+                        onChange={handleChange}
+                        type="text"
+                        variant="outlined"
+                        InputProps={{className: classes.input}}/>
+                    <TextField
                     name="description"
                     label="Description"
                     autoComplete="off"
@@ -77,7 +86,7 @@ export default function EditProject() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        updateProject(id, projectData.title, projectData.description, projectData.imageName, token)
+        updateProject(id, projectData.title, projectData.description, projectData.imageName, projectData.teaser, token)
             .then(() => history.push("/project/" + projectData.id + "/edit"))
             .catch(error => console.log(error));
     }

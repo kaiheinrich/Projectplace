@@ -19,9 +19,9 @@ export default function ProjectOverviewItem({project}) {
                 className={classes.cardHeader}
                 title={project.title}
                 subheader={<Typography>by {project.projectOwner}</Typography>}/>
-            <CardContent className={classes.description}>
+            <CardContent className={classes.teaser}>
                 <Typography variant="body2" component="p">
-                    {project.description}
+                    {project.teaser}
                 </Typography>
             </CardContent>
             <CardContent>
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
     name: {
         fontSize: 20
     },
-    description: {
+    teaser: {
         paddingBottom: "0"
     },
     bullet: {
