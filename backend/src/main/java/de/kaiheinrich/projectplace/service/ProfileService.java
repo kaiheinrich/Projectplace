@@ -2,7 +2,6 @@ package de.kaiheinrich.projectplace.service;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.dto.MessageDto;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
