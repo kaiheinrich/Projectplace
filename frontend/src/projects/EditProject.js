@@ -81,8 +81,8 @@ export default function EditProject() {
                     <Button className={classes.button} type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
                 <ButtonGroupStyled>
-                    <Button className={classes.goBackButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
-                    <Button className={classes.goBackButton} variant="contained" onClick={handleDelete}>Delete project</Button>
+                    <Button className={classes.greyButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
+                    <Button className={classes.greyButton} variant="contained" onClick={handleDelete}>Delete project</Button>
                 </ButtonGroupStyled>
             </Card>
         </>
@@ -137,7 +137,7 @@ const useStyles = makeStyles(() => ({
         backgroundColor: "#d7385e",
         color: "white"
     },
-    goBackButton: {
+    greyButton: {
         width: "100%",
         backgroundColor: "#e7e7e7",
         fontSize: "0.8em"

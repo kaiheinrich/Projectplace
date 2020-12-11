@@ -24,7 +24,7 @@ export default function SentMessages() {
                 <CardContent className={classes.messages}>
                     <MessageList>
                         {profile.sentMessages?.slice(0).reverse().map(message =>
-                            <Link to={`/message/${message.id}`}><Typography align="left">To: {message.recipient}, Subject: {message.subject}, Time: {message.timestamp}</Typography></Link>)}
+                            <Link key={message.id} to={`/message/${message.id}`}><Typography align="left">To: {message.recipient}, Subject: {message.subject}, Time: {message.timestamp}</Typography></Link>)}
                     </MessageList>
                 </CardContent>
             </Card>

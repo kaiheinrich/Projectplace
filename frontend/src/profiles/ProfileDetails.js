@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import ProfileContext from "../contexts/ProfileContext";
 import SkillList from "./SkillList";
@@ -14,7 +14,17 @@ export default function ProfileDetails(){
     const {username} = useParams();
     const {profiles} = useContext(ProfileContext);
     const profile = profiles?.find(profile => profile.username === username);
+    const [dayOfBirth, setDayOfBirth] = useState(0);
+    const [monthOfBirth, setMonthOfBirth] = useState(0);
+    const [yearOfBirth, setYearOfBirth] = useState(0);
     const history = useHistory();
+
+    useEffect(() => {
+        const date = new Date(profile?.birthday);
+        setDayOfBirth(date.getDate());
+        setMonthOfBirth(date.getMonth() + 1);
+        setYearOfBirth(date.getFullYear());
+    }, [profile])
 
     const handleClick = () =>
         history.goBack();
@@ -30,7 +40,7 @@ export default function ProfileDetails(){
                         disableTypography={true}
                         title={<Typography className={classes.name}>{profile.name}</Typography>}
                         subheader={<div><address>Located in: {profile.location}</address>
-                            <time>Birthday: {profile.birthday}</time></div>}
+                            <time>Birthday: {`${dayOfBirth}.${monthOfBirth}.${yearOfBirth}`}</time></div>}
                         avatar={<Avatar className={classes.avatar} src={profile.imageUrl}/>}
                         />
                     <CardContent className={classes.cardContent}>
@@ -48,7 +58,7 @@ export default function ProfileDetails(){
                     </CardContent>
                 </Card>
                 <ButtonSectionStyled>
-                <Button className={classes.goBackButton} variant="contained" onClick={handleClick}>Back to profiles</Button>
+                <Button className={classes.goBackButton} variant="contained" onClick={handleClick}>Go back</Button>
                 <Button className={classes.button} variant="contained" onClick={() => history.push(`/messageto/${profile.username}`)}>Send message</Button>
                 </ButtonSectionStyled>
             </ProfileDetailsStyled>

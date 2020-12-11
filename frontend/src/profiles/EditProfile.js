@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import ProfileContext from "../contexts/ProfileContext";
 import TextField from "@material-ui/core/TextField";
-import {updateProfile, uploadProfileImage} from "../service/ProfileService";
+import {getProfiles, updateProfile, uploadProfileImage} from "../service/ProfileService";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
 import {Avatar, Button, Grid, Typography} from "@material-ui/core";
@@ -17,7 +17,7 @@ export default function EditProfile() {
     const classes = useStyles();
 
     const {username} = useParams();
-    const {profiles} = useContext(ProfileContext);
+    const {profiles, setProfiles} = useContext(ProfileContext);
     const [profileData, setProfileData] = useState(null);
     const [newSkill, setNewSkill] = useState("");
     const [file, setFile] = useState();
@@ -103,6 +103,7 @@ export default function EditProfile() {
                     </div>
                     <Button className={classes.button} type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
+                <Button className={classes.greyButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
             </Card>
         </>
     );
@@ -117,7 +118,8 @@ export default function EditProfile() {
             profileData.skills,
             profileData.imageName,
             token)
-            .then(() => history.push("/profile/"+ profileData.username+ "/edit"))
+            .then(() => history.push("/profile/"+ profileData.username))
+            .then(() => getProfiles(token).then(setProfiles))
             .catch(error => console.log(error));
     }
 
@@ -141,6 +143,10 @@ export default function EditProfile() {
 
     }
 
+    function handleGoBack() {
+        history.goBack();
+    }
+
     function handleDelete(indexToRemove) {
         setProfileData({...profileData, skills: profileData.skills.filter((_, index) => index !== indexToRemove)})
     }
@@ -162,6 +168,12 @@ const useStyles = makeStyles(() => ({
     button: {
         backgroundColor: "#d7385e",
         color: "white"
+    },
+    greyButton: {
+        width: "100%",
+        backgroundColor: "#e7e7e7",
+        fontSize: "0.8em",
+        marginTop: "8px"
     },
     avatar: {
         width: "90px",
