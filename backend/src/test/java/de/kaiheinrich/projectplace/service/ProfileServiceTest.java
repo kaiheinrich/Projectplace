@@ -2,7 +2,6 @@ package de.kaiheinrich.projectplace.service;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.dto.MessageDto;
 import de.kaiheinrich.projectplace.dto.ProfileDto;
@@ -61,9 +60,6 @@ class ProfileServiceTest {
         when(profileDb.findAll()).thenReturn(profiles);
         when(expirationUtils.getExpirationTime()).thenReturn(expiration);
         when(s3ClientUtils.getBucketName()).thenReturn("test-bucket");
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest("test-bucket", "imageName")
-                .withMethod(HttpMethod.GET)
-                .withExpiration(expiration);
         when(s3Client.generatePresignedUrl("test-bucket", "imageName", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url.de"));
 
 

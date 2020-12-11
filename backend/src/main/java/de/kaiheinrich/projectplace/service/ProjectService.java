@@ -101,7 +101,12 @@ public class ProjectService {
     }
 
 
-    public void deleteProject(String id) {
+    public void deleteProject(String id, String username) {
+
+        Project projectToDelete = getProjectById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Profile userProfile = profileDb.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        userProfile.getProjects().remove(projectToDelete);
+        profileDb.save(userProfile);
         projectDb.deleteById(id);
     }
 }

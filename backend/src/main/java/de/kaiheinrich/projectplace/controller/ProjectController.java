@@ -62,6 +62,6 @@ public class ProjectController {
         if(!Objects.equals(projectService.getProjectById(id).get().getProjectOwner(), principal.getName())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
-        projectService.deleteProject(id);
+        projectService.deleteProject(id, principal.getName());
     }
 }

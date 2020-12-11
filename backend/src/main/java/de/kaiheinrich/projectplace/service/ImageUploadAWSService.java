@@ -17,9 +17,6 @@ import java.io.IOException;
 @Service
 public class ImageUploadAWSService {
 
-    @Value("${aws.bucket.name}")
-    private String bucketName;
-
     private final AmazonS3ClientUtils s3ClientUtils;
     private final IdUtils idUtils;
 
@@ -36,7 +33,7 @@ public class ImageUploadAWSService {
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
-            PutObjectRequest request = new PutObjectRequest(bucketName, randomFileName, file.getInputStream(), metadata);
+            PutObjectRequest request = new PutObjectRequest(s3ClientUtils.getBucketName(), randomFileName, file.getInputStream(), metadata);
             s3Client.putObject(request);
 
             return randomFileName;
