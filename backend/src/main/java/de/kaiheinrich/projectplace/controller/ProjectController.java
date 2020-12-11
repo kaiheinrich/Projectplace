@@ -50,7 +50,7 @@ public class ProjectController {
     }
 
     @PostMapping("/image")
-    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
+    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
         return imageUploadAWSService.upload(file);
     }
 

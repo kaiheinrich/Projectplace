@@ -37,9 +37,6 @@ public class ProfileController {
 
     @PutMapping("{username}")
     public Profile updateProfile(@RequestBody ProfileDto profileDto, Principal principal, @PathVariable String username) {
-        if(profileService.getProfileByUsername(username).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
         if(!Objects.equals(principal.getName(), username)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
@@ -47,12 +44,15 @@ public class ProfileController {
     }
 
     @PostMapping("/image")
-    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
+    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
         return imageUploadAWSService.upload(file);
     }
 
     @PostMapping("/message/{username}")
     public Message sendMessage(@PathVariable String username, @RequestBody MessageDto messageDto, Principal principal) {
+        if(!Objects.equals(principal.getName(), messageDto.getSender())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return profileService.sendMessage(principal.getName(), username, messageDto);
     }
 }
