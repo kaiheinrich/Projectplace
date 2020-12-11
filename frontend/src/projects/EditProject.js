@@ -7,7 +7,7 @@ import styled from "styled-components/macro";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import {Button, Grid} from "@material-ui/core";
-import {updateProject, uploadProjectImage} from "../service/ProjectService";
+import {deleteProject, getProjects, updateProject, uploadProjectImage} from "../service/ProjectService";
 import Card from "@material-ui/core/Card";
 import {ImageSearchOutlined} from "@material-ui/icons";
 
@@ -15,7 +15,7 @@ export default function EditProject() {
 
     const classes = useStyles();
     const {id} = useParams();
-    const {projects} = useContext(ProjectContext);
+    const {projects, setProjects} = useContext(ProjectContext);
     const [projectData, setProjectData] = useState(null);
     const [file, setFile] = useState();
 
@@ -80,6 +80,10 @@ export default function EditProject() {
                     </Grid>
                     <Button className={classes.button} type="submit" variant="contained">Save changes</Button>
                 </FormStyled>
+                <ButtonGroupStyled>
+                    <Button className={classes.goBackButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
+                    <Button className={classes.goBackButton} variant="contained" onClick={handleDelete}>Delete project</Button>
+                </ButtonGroupStyled>
             </Card>
         </>
     );
@@ -87,8 +91,19 @@ export default function EditProject() {
     function handleSubmit(event) {
         event.preventDefault();
         updateProject(id, projectData.title, projectData.description, projectData.imageName, projectData.teaser, token)
-            .then(() => history.push("/project/" + projectData.id + "/edit"))
+            .then(() => history.push("/project/" + projectData.id))
+            .then(() => getProjects(token).then(setProjects))
             .catch(error => console.log(error));
+    }
+
+    function handleGoBack() {
+        history.goBack();
+    }
+
+    function handleDelete() {
+        deleteProject(id, token)
+            .then(() => getProjects(token).then(setProjects))
+            .then(() => history.push("/project"));
     }
 
     function handleChange(event) {
@@ -121,10 +136,22 @@ const useStyles = makeStyles(() => ({
     button: {
         backgroundColor: "#d7385e",
         color: "white"
+    },
+    goBackButton: {
+        width: "100%",
+        backgroundColor: "#e7e7e7",
+        fontSize: "0.8em"
     }
 }));
 
 const FormStyled = styled.form`
   display: grid;
   gap: var(--size-l)
+`
+
+const ButtonGroupStyled = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 8px;
+  gap: 8px
 `
