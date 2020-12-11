@@ -51,7 +51,7 @@ export default function SendMessage() {
     function handleSubmit(event) {
         event.preventDefault();
         sendMessage(subject, message, userCredentials.sub, username, token)
-            .then(() => history.push(`/profile/${username}/messages`));
+            .then(() => history.push(`/profile/${userCredentials.sub}/messages`));
     }
 }
 

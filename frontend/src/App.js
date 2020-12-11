@@ -12,7 +12,7 @@ import ProjectOverview from "./projects/ProjectOverview";
 import ProjectContextProvider from "./contexts/ProjectContextProvider";
 import Home from "./home/Home";
 import SignUpPage from "./signUpPage/SignUpPage";
-import backgroundImage from "./backgroundImage/test.jpg"
+import backgroundImage from "./backgroundImage/work.jpg"
 import ProjectDetails from "./projects/ProjectDetails";
 import EditProject from "./projects/EditProject";
 import AddProject from "./projects/AddProject";

@@ -47,7 +47,7 @@ export default function SignUpPage() {
                         type="password"
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
-                    <Button variant={"contained"}>Get started</Button>
+                    <Button type="submit" variant={"contained"}>Get started</Button>
                     <div>
                         {errorFrontend && <p>{errorFrontend}</p>}
                         {errorBackend && <p>{errorBackend}</p>}
