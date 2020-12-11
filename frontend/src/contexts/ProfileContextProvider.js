@@ -12,6 +12,6 @@ export default function ProfileContextProvider({children}) {
         tokenIsValid() && getProfiles(token).then(setProfiles).catch(console.log);
     }, [token, tokenIsValid])
 
-    return <ProfileContext.Provider value={{profiles}}>{children}</ProfileContext.Provider>;
+    return <ProfileContext.Provider value={{profiles, setProfiles}}>{children}</ProfileContext.Provider>;
 }
 

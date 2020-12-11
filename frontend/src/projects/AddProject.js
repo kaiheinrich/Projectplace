@@ -4,14 +4,17 @@ import styled from "styled-components/macro";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import {Button, Grid} from "@material-ui/core";
-import {addProject, uploadProjectImage} from "../service/ProjectService";
+import {addProject, getProjects, uploadProjectImage} from "../service/ProjectService";
 import UserContext from "../contexts/UserContext";
 import {useHistory} from "react-router-dom";
 import {ImageSearchOutlined} from "@material-ui/icons";
+import Card from "@material-ui/core/Card";
+import ProjectContext from "../contexts/ProjectContext";
 
 export default function AddProject() {
 
     const classes = useStyles();
+    const {setProjects} = useContext(ProjectContext);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [teaser, setTeaser] = useState("");
@@ -23,7 +26,7 @@ export default function AddProject() {
     return(
         <>
             <MenuAppBar pagename="New project" searchIsActive={false}/>
-            <MainStyled>
+            <Card className={classes.card}>
                 <FormStyled onSubmit={handleSubmit}>
                     <TextField
                         name="title"
@@ -47,12 +50,13 @@ export default function AddProject() {
                         name="description"
                         label="Description"
                         autoComplete="off"
+                        multiline={true}
                         value={description}
                         onChange={event => setDescription(event.target.value)}
                         type="text"
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
-                    <img width="100%" alt="project" src={file}/>
+                    {file && <img width="100%" alt="project" src={file}/>}
                     <Grid>
                         <input
                             hidden
@@ -69,16 +73,18 @@ export default function AddProject() {
                             >Upload picture</Button>
                         </label>
                     </Grid>
-                    <Button type="submit" variant="contained">Save project</Button>
+                    <Button className={classes.button} type="submit" variant="contained">Save project</Button>
                 </FormStyled>
-            </MainStyled>
+                <Button className={classes.goBackButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
+            </Card>
         </>
     );
 
     function handleSubmit() {
         addProject(title, description, imageName, teaser, token)
-            .then(() => history.push("/project"))
+            .then(() => getProjects(token).then(setProjects))
             .catch(error => console.log(error));
+        history.push("/project");
     }
 
     function handlePictureChange(event) {
@@ -87,6 +93,10 @@ export default function AddProject() {
         uploadProjectImage(imageFile, token)
             .then(data => setImageName(data))
             .catch(error => console.log(error));
+    }
+
+    function handleGoBack() {
+        history.goBack();
     }
 }
 
@@ -98,12 +108,22 @@ const useStyles = makeStyles(() => ({
     },
     input: {
         backgroundColor: "lightgrey"
+    },
+    card: {
+        padding: "16px",
+        height: "100vh",
+        overflow: "scroll"
+    },
+    button: {
+        backgroundColor: "#d7385e",
+        color: "white"
+    },
+    goBackButton: {
+        width: "100%",
+        backgroundColor: "#e7e7e7",
+        fontSize: "0.8em"
     }
 }));
-
-const MainStyled = styled.main`
-  padding: var(--size-l);
-`
 
 const FormStyled = styled.form`
   display: grid;

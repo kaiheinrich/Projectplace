@@ -43,7 +43,7 @@ export default function ProjectDetails() {
 
                 </Card>
                 <ButtonSectionStyled>
-                    <Button className={classes.goBackButton} variant="contained" onClick={handleGoBack}>Back to projects</Button>
+                    <Button className={classes.goBackButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
                     <Button className={classes.button} variant="contained" onClick={() => history.push(`/messageto/${project.projectOwner}`)}>Take part</Button>
                 </ButtonSectionStyled>
             </ProjectDetailsStyled>

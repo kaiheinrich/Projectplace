@@ -18,6 +18,9 @@ public class AmazonS3ClientUtils {
     @Value("${aws.secret.key}")
     private String secretKey;
 
+    @Value("${aws.bucket.name}")
+    private String bucketName;
+
     private final Regions clientRegion = Regions.EU_CENTRAL_1;
 
     @Bean
@@ -32,5 +35,9 @@ public class AmazonS3ClientUtils {
                 .build();
 
         return s3Client;
+    }
+
+    public String getBucketName() {
+        return bucketName;
     }
 }

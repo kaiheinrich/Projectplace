@@ -24,3 +24,7 @@ export const uploadProjectImage = (file, token) => {
     return axios.post("/api/projects/image", formData, header(token, {'Content-Type': 'multipart/form-data'}))
         .then(response => response.data);
 }
+
+export const deleteProject = (id, token) =>
+    axios.delete("/api/projects/" + id, header(token))
+        .catch(error => console.log(error));

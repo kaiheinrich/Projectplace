@@ -8,13 +8,13 @@ import AddProjectButton from "../addProjectButton/AddProjectButton";
 
 const images = [
     {
-        url: './images/team.jpg',
+        url: './images/team.png',
         title: 'Team members',
         height: '100%',
         linkto: '/profile'
     },
     {
-        url: './images/project.jpg',
+        url: './images/idea.jpg',
         title: 'Project ideas',
         height: '100%',
         linkto: '/project'
@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
     },
     imageTitle: {
         position: 'relative',
+        fontSize: "1.8em",
         padding: `${theme.spacing(2)}px ${theme.spacing(4)}px ${theme.spacing(1) + 6}px`,
     },
     imageMarked: {
@@ -122,7 +123,7 @@ export default function Home() {
                         <span className={classes.imageButton}>
             <Typography
                 component="span"
-                variant="subtitle1"
+                variant="subtitle2"
                 color="inherit"
                 className={classes.imageTitle}
             >

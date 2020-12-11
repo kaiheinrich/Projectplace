@@ -12,5 +12,5 @@ export default function ProjectContextProvider({children}) {
         tokenIsValid() && getProjects(token).then(setProjects).catch(console.log);
     }, [token, tokenIsValid])
 
-    return <ProjectContext.Provider value={{projects}}>{children}</ProjectContext.Provider>
+    return <ProjectContext.Provider value={{projects, setProjects}}>{children}</ProjectContext.Provider>
 }
