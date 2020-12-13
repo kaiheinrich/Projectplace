@@ -81,7 +81,7 @@ class SignUpControllerIntegrationTest {
     public void testPostMappingShouldReturnBadRequestWhenPasswordDoesNotMatchCriteria(String password) {
 
         //Given
-        SignUpDto signUpDto = new SignUpDto("kai", password, "Kai", LocalDate.of(1991, 11, 5));
+        SignUpDto signUpDto = new SignUpDto("andi", password, "Kai", LocalDate.of(1991, 11, 5));
 
         //When
         ResponseEntity<String> response = restTemplate.postForEntity(getSignUpUrl(), signUpDto, String.class);
