@@ -37,7 +37,7 @@ export default function EditProfile() {
         <>
             <MenuAppBar pagename="Edit profile" searchIsActive={false}/>
             <Card className={classes.card}>
-                <FormStyled onSubmit={handleSubmit}>
+                <FormStyled id="profile-form" onSubmit={handleSubmit}>
                     {file ? <Avatar className={classes.avatar} alt="profile" src={file}/> : <Avatar className={classes.avatar} alt="profile" src={profileData.imageUrl}/> }
                     <Grid container item>
                         <input
@@ -101,7 +101,7 @@ export default function EditProfile() {
                         InputProps={{className: classes.input}}/>
                         {newSkill && <Typography>Press enter to add new skill</Typography>}
                     </div>
-                    <Button className={classes.button} type="submit" variant="contained">Save changes</Button>
+                    <Button className={classes.button} variant="contained">Save changes</Button>
                 </FormStyled>
                 <Button className={classes.greyButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
             </Card>
@@ -118,9 +118,10 @@ export default function EditProfile() {
             profileData.skills,
             profileData.imageName,
             token)
-            .then(() => history.push("/profile/"+ profileData.username))
             .then(() => getProfiles(token).then(setProfiles))
+            .then(() => history.push("/profile/"+ profileData.username))
             .catch(error => console.log(error));
+
     }
 
     function handlePictureChange(event) {
