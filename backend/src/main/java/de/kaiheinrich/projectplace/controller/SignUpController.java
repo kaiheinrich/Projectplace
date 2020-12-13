@@ -1,7 +1,6 @@
 package de.kaiheinrich.projectplace.controller;
 
 import de.kaiheinrich.projectplace.dto.SignUpDto;
-import de.kaiheinrich.projectplace.model.ProjectplaceUser;
 import de.kaiheinrich.projectplace.service.SignUpService;
 import de.kaiheinrich.projectplace.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
