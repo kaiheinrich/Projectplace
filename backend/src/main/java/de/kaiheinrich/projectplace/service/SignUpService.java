@@ -2,6 +2,7 @@ package de.kaiheinrich.projectplace.service;
 
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.db.UserMongoDb;
+import de.kaiheinrich.projectplace.dto.SignUpDto;
 import de.kaiheinrich.projectplace.model.Profile;
 import de.kaiheinrich.projectplace.model.ProjectplaceUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,20 @@ public class SignUpService {
         this.profileDb = profileDb;
     }
 
-    public Optional<String> signUp(ProjectplaceUser projectplaceUser) {
+    public Optional<String> signUp(SignUpDto signUpDto) {
 
-        Optional<ProjectplaceUser> user = userDb.findById(projectplaceUser.getUsername());
+        Optional<ProjectplaceUser> user = userDb.findById(signUpDto.getUsername());
 
         if(user.isPresent()) {
             return Optional.empty();
         }
 
-        String hashedPassword = passwordEncoder.encode(projectplaceUser.getPassword());
-        ProjectplaceUser newUser = new ProjectplaceUser(projectplaceUser.getUsername(), hashedPassword);
+        String hashedPassword = passwordEncoder.encode(signUpDto.getPassword());
+        ProjectplaceUser newUser = new ProjectplaceUser(signUpDto.getUsername(), hashedPassword);
         profileDb.save(new Profile(
-                projectplaceUser.getUsername(),
-                "",
-                LocalDate.of(2000, 1, 1),
+                signUpDto.getUsername(),
+                signUpDto.getName(),
+                signUpDto.getBirthday(),
                 "",
                 List.of(),
                 "",

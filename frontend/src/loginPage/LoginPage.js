@@ -22,7 +22,7 @@ export default function LoginPage() {
     return(
         <>
             <HeaderStyled title="Login">Welcome to Projectplace!</HeaderStyled>
-            <Card className={classes.card} elevation={"10"} raised={true}>
+            <Card className={classes.card} raised={true}>
                 <Form autoComplete="off" onSubmit={handleSubmit}>
                     <TextField
                         name="username"

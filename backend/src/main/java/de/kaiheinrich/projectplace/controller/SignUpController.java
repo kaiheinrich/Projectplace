@@ -1,5 +1,6 @@
 package de.kaiheinrich.projectplace.controller;
 
+import de.kaiheinrich.projectplace.dto.SignUpDto;
 import de.kaiheinrich.projectplace.model.ProjectplaceUser;
 import de.kaiheinrich.projectplace.service.SignUpService;
 import de.kaiheinrich.projectplace.utils.PasswordUtils;
@@ -27,14 +28,14 @@ public class SignUpController {
     }
 
     @PostMapping
-    public String signUp(@RequestBody ProjectplaceUser projectplaceUser) {
+    public String signUp(@RequestBody SignUpDto signUpDto) {
 
-        Optional<String> username = signUpService.signUp(projectplaceUser);
+        Optional<String> username = signUpService.signUp(signUpDto);
 
         if(username.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists!");
         }
-        if(!passwordUtils.validatePassword(projectplaceUser.getPassword())) {
+        if(!passwordUtils.validatePassword(signUpDto.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid password!");
         }
 

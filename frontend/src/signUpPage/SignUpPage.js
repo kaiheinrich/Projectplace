@@ -13,6 +13,8 @@ export default function SignUpPage() {
     const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
+    const [name, setName] = useState("");
+    const [birthday, setBirthday] = useState();
     const [errorFrontend, setErrorFrontend] = useState("");
     const [errorBackend, setErrorBackend] = useState("");
     const {postSignUp} = useContext(UserContext);
@@ -26,6 +28,7 @@ export default function SignUpPage() {
                     <TextField
                         name="username"
                         label="Choose your username"
+                        autoComplete="off"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
                         type="text"
@@ -35,21 +38,40 @@ export default function SignUpPage() {
                     <TextField
                         name="password"
                         label="Set your password"
+                        autoComplete="off"
                         value={password1}
                         onChange={(event) => setPassword1(event.target.value)}
                         type="password"
                         required={true}
-                        variant="outlined"
-                        InputProps={{className: classes.input}}/>
+                        variant="outlined"/>
                     <TextField
                         name="password"
                         label="Repeat your password"
+                        autoComplete="off"
                         value={password2}
                         onChange={(event) => setPassword2(event.target.value)}
                         type="password"
                         required={true}
+                        variant="outlined"/>
+                        <TextField
+                        name="name"
+                        label="What's your name?"
+                        autoComplete="off"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        type="text"
+                        required={true}
+                        variant="outlined"/>
+                    <TextField
+                        name="birthday"
+                        label="Birthday"
+                        autoComplete="off"
+                        value={birthday}
+                        onChange={(event) => setBirthday(event.target.value)}
+                        type="date"
+                        required={true}
                         variant="outlined"
-                        InputProps={{className: classes.input}}/>
+                        InputLabelProps={{ shrink: true }}/>
                     <Button type="submit" variant={"contained"}>Get started</Button>
                     <div>
                         {errorFrontend && <p>{errorFrontend}</p>}
@@ -68,7 +90,7 @@ export default function SignUpPage() {
             checkIfPasswordsMatch();
             validatePassword();
 
-            postSignUp(username, password1)
+            postSignUp(username, password1, name, birthday)
                 .then(() => history.push("/login"))
                 .catch((error) => {
                     console.log(error.response.data.message);
@@ -115,9 +137,6 @@ export default function SignUpPage() {
 }
 
 const useStyles = makeStyles(() => ({
-    input: {
-        backgroundColor: "lightgrey"
-    },
     link: {
         backgroundColor: "white",
         padding: "8px",
