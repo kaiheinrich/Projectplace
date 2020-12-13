@@ -45,12 +45,12 @@ class ProfileServiceTest {
         //Given
         List<Profile> profiles = List.of(
                 new Profile("andi324","Andreas", LocalDate.of(1900, 10, 24),
-                        "Berlin", new ArrayList<>(List.of("Cars and couches")), "http://www.url.de", "imageName",
+                        "Berlin", new ArrayList<>(List.of("Cars and couches")), "http://www.url1.de", "imageName1",
                         new ArrayList<>(List.of(new Project("projectid1", "andi324", "title1", "description1", "projectimageurl1", "projectimage1", "teaser1"))),
                         new ArrayList<>(List.of(new Message("messageid1", Instant.parse("2020-10-24T14:15:00Z"), "subject1", "message1", "birgit116", "andi324"))),
                         new ArrayList<>(List.of(new Message("messageid2", Instant.parse("2020-10-24T14:15:00Z"), "subject2", "message2", "andi324", "birgit116")))),
                 new Profile("birgit116","Birgit", LocalDate.of(1985, 9, 9),
-                        "Hamburg", new ArrayList<>(List.of("Nails")), "http://www.url.de", "imageName",
+                        "Hamburg", new ArrayList<>(List.of("Nails")), "http://www.url2.de", "imageName2",
                         new ArrayList<>(List.of(new Project("projectid2", "birgit116", "title2", "description2", "projectimageurl2", "projectimage2", "teaser2"))),
                         new ArrayList<>(List.of(new Message("messageid2", Instant.parse("2020-10-24T14:15:00Z"), "subject2", "message2", "andi324", "birgit116"))),
                         new ArrayList<>(List.of(new Message("messageid1", Instant.parse("2020-10-24T14:15:00Z"), "subject1", "message1", "birgit116", "andi324"))))
@@ -60,7 +60,8 @@ class ProfileServiceTest {
         when(profileDb.findAll()).thenReturn(profiles);
         when(expirationUtils.getExpirationTime()).thenReturn(expiration);
         when(s3ClientUtils.getBucketName()).thenReturn("test-bucket");
-        when(s3Client.generatePresignedUrl("test-bucket", "imageName", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url.de"));
+        when(s3Client.generatePresignedUrl("test-bucket", "imageName1", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url1.de"));
+        when(s3Client.generatePresignedUrl("test-bucket", "imageName2", expiration, HttpMethod.GET)).thenReturn(new URL("http://www.url2.de"));
 
 
         //When

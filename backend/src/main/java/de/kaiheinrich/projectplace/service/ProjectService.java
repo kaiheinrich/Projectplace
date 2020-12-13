@@ -98,7 +98,6 @@ public class ProjectService {
         return projectDb.save(updatedProject);
     }
 
-
     public void deleteProject(String id, String username) {
 
         Project projectToDelete = getProjectById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
