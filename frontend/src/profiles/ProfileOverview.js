@@ -18,7 +18,7 @@ export default function ProfileOverview() {
             </div>
             <ListStyled>
                 {searchTerm ? profiles?.filter(profile =>
-                    profile.skills.some(element => element.includes(searchTerm))).map(profile =>
+                    profile.skills.some(element => element.toLowerCase().includes(searchTerm.toLowerCase()))).map(profile =>
                     <li key={profile.username}>
                         <ProfileOverviewItem profile={profile}/>
                     </li>)

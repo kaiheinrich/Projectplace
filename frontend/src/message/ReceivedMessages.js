@@ -24,7 +24,14 @@ export default function ReceivedMessages() {
                 <CardContent className={classes.messages}>
                     <MessageList>
                         {profile?.receivedMessages?.slice(0).reverse().map(message =>
-                            <Link key={message.id} to={`/message/${message.id}`}><Typography align="left">From: {message.sender}, Subject: {message.subject}, Time: {message.timestamp}</Typography></Link>)}
+                            <div key={message.id}>
+                            <Link className={classes.link} to={`/message/${message.id}`}>
+                                <Typography className={classes.sender} align="left">{message.sender}</Typography>
+                            </Link>
+                                <Typography className={classes.subject} align="left">{message.subject}</Typography>
+                                <Typography align="left">{new Date(message.timestamp).toLocaleString()}</Typography>
+                                <hr className={classes.hr}/>
+                            </div>)}
                     </MessageList>
                 </CardContent>
             </Card>
@@ -47,6 +54,19 @@ const useStyles = makeStyles({
         gridAutoRows: "min-content",
         padding: "16px",
         gap: "12px"
+    },
+    hr: {
+        height: "0.5px",
+        color: "#F3EED9"
+    },
+    sender: {
+        fontWeight: "bold"
+    },
+    subject: {
+        fontStyle: "italic"
+    },
+    link: {
+        color: "black"
     }
 });
 

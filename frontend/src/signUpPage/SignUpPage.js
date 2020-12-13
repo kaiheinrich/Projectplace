@@ -29,6 +29,7 @@ export default function SignUpPage() {
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
                         type="text"
+                        required={true}
                         variant="outlined"/>
                         <Typography>Your password must contain at least 8 characters including uppercase, lowercase & numbers.</Typography>
                     <TextField
@@ -37,6 +38,7 @@ export default function SignUpPage() {
                         value={password1}
                         onChange={(event) => setPassword1(event.target.value)}
                         type="password"
+                        required={true}
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
                     <TextField
@@ -45,6 +47,7 @@ export default function SignUpPage() {
                         value={password2}
                         onChange={(event) => setPassword2(event.target.value)}
                         type="password"
+                        required={true}
                         variant="outlined"
                         InputProps={{className: classes.input}}/>
                     <Button type="submit" variant={"contained"}>Get started</Button>
