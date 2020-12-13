@@ -4,4 +4,4 @@
 
 This project is my personal final project of the Web Development Bootcamp at "neuefische".
 
-![preview](Kai_Heinrich_Projectplace.png)
+<img src="Kai_Heinrich_Projectplace.png" alt="preview" width="250"/>
