@@ -156,15 +156,17 @@ export default function EditProfile() {
 const useStyles = makeStyles(() => ({
     skill: {
         margin: "4px",
-        backgroundColor: "#F3EED9",
+        color: "white",
+        backgroundColor: "#d7385e"
     },
     input: {
-        backgroundColor: "#ebebeb"
+        backgroundColor: "inherit"
     },
     card: {
         padding: "16px",
         height: "100vh",
-        overflow: "scroll"
+        overflow: "scroll",
+        backgroundColor: "#F3EED9"
     },
     button: {
         backgroundColor: "#d7385e",

@@ -107,12 +107,13 @@ const useStyles = makeStyles(() => ({
         color: "white"
     },
     input: {
-        backgroundColor: "lightgrey"
+        backgroundColor: "inherit"
     },
     card: {
         padding: "16px",
         height: "100vh",
-        overflow: "scroll"
+        overflow: "scroll",
+        backgroundColor: "#F3EED9"
     },
     button: {
         backgroundColor: "#d7385e",
