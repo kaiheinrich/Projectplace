@@ -1,4 +1,3 @@
-/*
 package de.kaiheinrich.projectplace.security;
 
 import de.kaiheinrich.projectplace.db.UserMongoDb;
@@ -106,4 +105,4 @@ class JwtAuthFilterTest {
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
     }
-}*/
+}
