@@ -60,15 +60,16 @@ export default function LoginPage() {
 
 const useStyles = makeStyles(() => ({
     input: {
-        backgroundColor: "lightgrey"
+        backgroundColor: "inherit"
     },
     link: {
-        backgroundColor: "white",
+        backgroundColor: "#F3EED9",
         padding: "8px",
         color: "black"
     },
     card: {
-        height: "min-content"
+        height: "min-content",
+        backgroundColor: "#F3EED9"
     }
 }));
 

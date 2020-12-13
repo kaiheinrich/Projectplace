@@ -78,7 +78,7 @@ export default function SignUpPage() {
                         {errorBackend && <p>{errorBackend}</p>}
                     </div>
                 </Form>
-                <Button className={classes.goBackButton} onClick={() => history.push("/login")}>Back to login</Button>
+                <Button variant="outlined" className={classes.goBackButton} onClick={() => history.push("/login")}>Back to login</Button>
             </Card>
         </>
     );
@@ -144,7 +144,8 @@ const useStyles = makeStyles(() => ({
     },
     card: {
         height: "min-content",
-        padding: "16px"
+        padding: "16px",
+        backgroundColor: "#F3EED9"
     },
     goBackButton: {
         backgroundColor: "#e7e7e7",
