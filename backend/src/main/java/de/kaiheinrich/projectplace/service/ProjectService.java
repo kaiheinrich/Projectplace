@@ -2,7 +2,6 @@ package de.kaiheinrich.projectplace.service;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import de.kaiheinrich.projectplace.db.ProfileMongoDb;
 import de.kaiheinrich.projectplace.db.ProjectMongoDb;
 import de.kaiheinrich.projectplace.dto.ProjectDto;
@@ -12,7 +11,6 @@ import de.kaiheinrich.projectplace.utils.AmazonS3ClientUtils;
 import de.kaiheinrich.projectplace.utils.DateExpirationUtils;
 import de.kaiheinrich.projectplace.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,12 +22,10 @@ import java.util.Optional;
 @Service
 public class ProjectService {
 
-    @Value("${aws.bucket.name}")
-    private String bucketName;
-
     private final ProjectMongoDb projectDb;
     private final IdUtils idUtils;
     private final ProfileMongoDb profileDb;
+    private final AmazonS3 s3Client;
     private final AmazonS3ClientUtils s3ClientUtils;
     private final DateExpirationUtils expirationUtils;
 
@@ -37,11 +33,13 @@ public class ProjectService {
     public ProjectService(ProjectMongoDb projectDb,
                           IdUtils idUtils,
                           ProfileMongoDb profileDb,
+                          AmazonS3 s3Client,
                           AmazonS3ClientUtils s3ClientUtils,
                           DateExpirationUtils expirationUtils) {
         this.projectDb = projectDb;
         this.idUtils = idUtils;
         this.profileDb = profileDb;
+        this.s3Client = s3Client;
         this.s3ClientUtils = s3ClientUtils;
         this.expirationUtils = expirationUtils;
     }
@@ -50,15 +48,15 @@ public class ProjectService {
 
         List<Project> projectList = projectDb.findAll();
         Date expiration = expirationUtils.getExpirationTime();
-        AmazonS3 s3Client = s3ClientUtils.getS3Client();
 
         for(Project project : projectList) {
             if(!project.getImageName().equals("")) {
-                GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                        new GeneratePresignedUrlRequest(bucketName, project.getImageName())
-                                .withMethod(HttpMethod.GET)
-                                .withExpiration(expiration);
-                project.setImageUrl(s3Client.generatePresignedUrl(generatePresignedUrlRequest).toString());
+                project.setImageUrl(s3Client.generatePresignedUrl(
+                        s3ClientUtils.getBucketName(),
+                        project.getImageName(),
+                        expiration,
+                        HttpMethod.GET)
+                        .toString());
             }
         }
         return projectList;
@@ -100,8 +98,12 @@ public class ProjectService {
         return projectDb.save(updatedProject);
     }
 
+    public void deleteProject(String id, String username) {
 
-    public void deleteProject(String id) {
+        Project projectToDelete = getProjectById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Profile userProfile = profileDb.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        userProfile.getProjects().remove(projectToDelete);
+        profileDb.save(userProfile);
         projectDb.deleteById(id);
     }
 }
