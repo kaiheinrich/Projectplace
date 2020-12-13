@@ -47,7 +47,8 @@ public class SignUpService {
                 List.of(),
                 List.of(),
                 List.of()));
+        userDb.save(newUser);
 
-        return Optional.of(userDb.save(newUser).getUsername());
+        return Optional.of(newUser.getUsername());
     }
 }
