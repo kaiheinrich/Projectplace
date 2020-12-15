@@ -10,11 +10,14 @@ import {useHistory} from "react-router-dom";
 import {ImageSearchOutlined} from "@material-ui/icons";
 import Card from "@material-ui/core/Card";
 import ProjectContext from "../contexts/ProjectContext";
+import {getProfiles} from "../service/ProfileService";
+import ProfileContext from "../contexts/ProfileContext";
 
 export default function AddProject() {
 
     const classes = useStyles();
     const {setProjects} = useContext(ProjectContext);
+    const {setProfiles} = useContext(ProfileContext);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [teaser, setTeaser] = useState("");
@@ -83,6 +86,7 @@ export default function AddProject() {
     function handleSubmit() {
         addProject(title, description, imageName, teaser, token)
             .then(() => getProjects(token).then(setProjects))
+            .then(() => getProfiles(token).then(setProfiles))
             .catch(error => console.log(error));
         history.push("/project");
     }

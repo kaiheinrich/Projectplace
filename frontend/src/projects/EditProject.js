@@ -10,12 +10,15 @@ import {Button, Grid} from "@material-ui/core";
 import {deleteProject, getProjects, updateProject, uploadProjectImage} from "../service/ProjectService";
 import Card from "@material-ui/core/Card";
 import {ImageSearchOutlined} from "@material-ui/icons";
+import {getProfiles} from "../service/ProfileService";
+import ProfileContext from "../contexts/ProfileContext";
 
 export default function EditProject() {
 
     const classes = useStyles();
     const {id} = useParams();
     const {projects, setProjects} = useContext(ProjectContext);
+    const {setProfiles} = useContext(ProfileContext);
     const [projectData, setProjectData] = useState(null);
     const [file, setFile] = useState();
 
@@ -93,6 +96,7 @@ export default function EditProject() {
         updateProject(id, projectData.title, projectData.description, projectData.imageName, projectData.teaser, token)
             .then(() => history.push("/project/" + projectData.id))
             .then(() => getProjects(token).then(setProjects))
+            .then(() => getProfiles(token).then(setProfiles))
             .catch(error => console.log(error));
     }
 
@@ -103,6 +107,7 @@ export default function EditProject() {
     function handleDelete() {
         deleteProject(id, token)
             .then(() => getProjects(token).then(setProjects))
+            .then(() => getProfiles(token).then(setProfiles))
             .then(() => history.push("/project"));
     }
 
