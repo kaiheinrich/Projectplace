@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {useParams, useHistory} from "react-router-dom";
+import {useParams, useHistory, Link} from "react-router-dom";
 import ProjectContext from "../contexts/ProjectContext";
 import styled from "styled-components/macro";
 import MenuAppBar from "../navBar/NavBar";
@@ -31,7 +31,7 @@ export default function ProjectDetails() {
                     <CardHeader
                         className={classes.cardHeader}
                         title={project.title}
-                        subheader={<div>by {project.projectOwner}</div>}
+                        subheader={<div>by <Link className={classes.link} to={`/profile/${project.projectOwner}`}>{project.projectOwner}</Link></div>}
                         action={buttonEnabled ? <Button className={classes.editButton} onClick={handleClick}>Edit</Button> : null}/>
                     <CardContent className={classes.cardContent}>
                         <Typography>Description:</Typography>
@@ -105,5 +105,8 @@ const useStyles = makeStyles({
         height: "82vh",
         backgroundColor: "#FFFFFF",
         overflow: "scroll"
+    },
+    link: {
+        color: "#666666"
     }
 });

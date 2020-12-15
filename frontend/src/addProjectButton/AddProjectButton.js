@@ -29,4 +29,5 @@ const FabContainerStyled = styled.div`
   position: fixed;
   right: var(--size-l);
   bottom: var(--size-l);
+  z-index: 200;
 `

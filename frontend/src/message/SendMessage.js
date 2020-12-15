@@ -71,10 +71,11 @@ const FormStyled = styled.form`
 
 const useStyles = makeStyles(() => ({
     input: {
-        backgroundColor: "lightgrey"
+        backgroundColor: "inherit"
     },
     card: {
         height: "min-content",
-        padding: "12px"
+        padding: "12px",
+        backgroundColor: "#F3EED9"
     }
 }));

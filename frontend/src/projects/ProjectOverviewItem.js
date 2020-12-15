@@ -1,5 +1,5 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -18,7 +18,7 @@ export default function ProjectOverviewItem({project}) {
             <CardHeader
                 className={classes.cardHeader}
                 title={project.title}
-                subheader={<Typography>by {project.projectOwner}</Typography>}/>
+                subheader={<div>by <Link className={classes.link} to={`/profile/${project.projectOwner}`}>{project.projectOwner}</Link></div>}/>
             <CardContent className={classes.teaser}>
                 <Typography variant="body2" component="p">
                     {project.teaser}
@@ -72,5 +72,8 @@ const useStyles = makeStyles({
         justifyContent: "center",
         alignContent: "center",
         padding: "0px 16px 16px 16px"
+    },
+    link: {
+        color: "#666666"
     }
 });
