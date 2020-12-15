@@ -4,10 +4,11 @@ import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import {sendMessage} from "../service/ProfileService";
+import {getProfiles, sendMessage} from "../service/ProfileService";
 import MenuAppBar from "../navBar/NavBar";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
+import ProfileContext from "../contexts/ProfileContext";
 
 export default function SendMessage() {
 
@@ -15,6 +16,7 @@ export default function SendMessage() {
     const {username} = useParams();
     const history = useHistory();
     const {userCredentials, token} = useContext(UserContext);
+    const {setProfiles} = useContext(ProfileContext);
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
@@ -51,6 +53,7 @@ export default function SendMessage() {
     function handleSubmit(event) {
         event.preventDefault();
         sendMessage(subject, message, userCredentials.sub, username, token)
+            .then(() => getProfiles(token).then(setProfiles))
             .then(() => history.push(`/profile/${userCredentials.sub}/messages`));
     }
 }
