@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import {getProfiles, updateProfile, uploadProfileImage} from "../service/ProfileService";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components/macro";
-import {Avatar, Button, Grid, Typography} from "@material-ui/core";
+import {Avatar, Button, Grid} from "@material-ui/core";
 import MenuAppBar from "../navBar/NavBar";
 import Chip from "@material-ui/core/Chip";
 import {makeStyles} from "@material-ui/core/styles";
@@ -89,19 +89,20 @@ export default function EditProfile() {
                                 <Chip variant={"outlined"} className={classes.skill} label={skill} key={index} onDelete={() => handleDelete(index)}/>
                             )}
                         </ul>
-                        <TextField
-                        name="skills"
-                        label="Add new skill"
-                        autoComplete="off"
-                        value={newSkill}
-                        onChange={(event) => setNewSkill(event.target.value)}
-                        onKeyUp={(event) => event.key === "Enter" && addSkill()}
-                        type="text"
-                        variant="outlined"
-                        InputProps={{className: classes.input}}/>
-                        {newSkill && <Typography>Press enter to add new skill</Typography>}
+                        <SkillAreaStyled>
+                            <TextField
+                            name="skills"
+                            label="Add new skill"
+                            autoComplete="off"
+                            value={newSkill}
+                            onChange={(event) => setNewSkill(event.target.value)}
+                            type="text"
+                            variant="outlined"
+                            InputProps={{className: classes.input}}/>
+                            <Button value={newSkill} className={classes.button} variant="contained" onClick={() => addSkill()}>Add skill</Button>
+                        </SkillAreaStyled>
                     </div>
-                    <Button className={classes.button} variant="contained">Save changes</Button>
+                    <Button type="submit" className={classes.button} variant="contained">Save changes</Button>
                 </FormStyled>
                 <Button className={classes.greyButton} variant="contained" onClick={handleGoBack}>Go Back</Button>
             </Card>
@@ -187,4 +188,10 @@ const useStyles = makeStyles(() => ({
 const FormStyled = styled.form`
   display: grid;
   gap: var(--size-l)
+`
+
+const SkillAreaStyled = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
 `
